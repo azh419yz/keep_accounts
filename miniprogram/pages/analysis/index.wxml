@@ -1,0 +1,87 @@
+<view class="page">
+  <t-navbar title="分析" fixed="{{false}}">
+    <view slot="subtitle" class="subtitle">资产概览与预算</view>
+  </t-navbar>
+
+  <scroll-view class="content" scroll-y>
+    <!-- 本月账单卡片 -->
+    <view class="bill-card">
+      <view class="bill-card-header">
+        <text class="bill-month">2025 年 12 月</text>
+        <text class="bill-days">记账已坚持 46 天</text>
+      </view>
+
+      <view class="bill-grid">
+        <view class="bill-grid-item">
+          <text class="bill-grid-label">收入</text>
+          <text class="bill-grid-value positive-text">+ 8,800.00</text>
+        </view>
+        <view class="bill-grid-item">
+          <text class="bill-grid-label">支出</text>
+          <text class="bill-grid-value negative-text">- 4,520.00</text>
+        </view>
+        <view class="bill-grid-item">
+          <text class="bill-grid-label">结余</text>
+          <text class="bill-grid-value">+ 4,280.00</text>
+        </view>
+      </view>
+
+      <view class="bill-footer">
+        <text class="bill-footer-left">
+          <text class="dot"></text>
+          较上月结余 +12.5%
+        </text>
+        <text class="bill-footer-right">建议将结余的 30% 用于理财</text>
+      </view>
+    </view>
+
+    <!-- 预算 -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">预算</text>
+        <text class="section-action">设置预算</text>
+      </view>
+      <text class="section-desc">
+        预算功能暂未实现，这里预留展示本月总预算、已用金额和剩余额度等信息。
+      </text>
+      <view class="budget-bar">
+        <view class="budget-bar-used"></view>
+        <view class="budget-bar-remain"></view>
+      </view>
+      <view class="budget-footer">
+        <text class="budget-percent">已用 60%（示意）</text>
+        <text class="budget-tip">建议控制非必要支出</text>
+      </view>
+    </view>
+
+    <!-- 资产管家 & 常用功能 -->
+    <view class="section space">
+      <t-cell-group>
+        <t-cell hover="{{false}}">
+          <view class="placeholder-card">
+            <view class="placeholder-header">
+              <text class="placeholder-title">资产管家</text>
+              <text class="placeholder-tag">功能预留</text>
+            </view>
+            <text class="placeholder-desc">
+              用于统一管理银行卡、余额、基金等资产信息，暂不做具体交互，仅展示占位卡片。
+            </text>
+          </view>
+        </t-cell>
+        <t-cell hover="{{false}}">
+          <view class="placeholder-card">
+            <view class="placeholder-header">
+              <text class="placeholder-title">常用功能</text>
+              <text class="placeholder-tag">功能预留</text>
+            </view>
+            <text class="placeholder-desc">
+              这里可以放「账单导出」「周期性账单」「还款提醒」等入口，本版本仅做样式占位。
+            </text>
+          </view>
+        </t-cell>
+      </t-cell-group>
+    </view>
+  </scroll-view>
+</view>
+
+

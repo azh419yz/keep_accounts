@@ -1,0 +1,154 @@
+<view class="page">
+  <t-navbar title="图表" fixed="{{false}}">
+    <view slot="subtitle" class="subtitle">收支趋势与排行榜</view>
+  </t-navbar>
+
+  <!-- 收入 / 支出 切换 -->
+  <view class="type-switch">
+    <view class="type-pill">
+      <view class="type-pill-inner">
+        <view class="type-pill-item active">支出</view>
+        <view class="type-pill-item">收入</view>
+      </view>
+    </view>
+    <text class="type-summary">
+      本月支出
+      <text class="type-summary-amount">- 4,520.00</text>
+    </text>
+  </view>
+
+  <!-- 周 / 月 / 年 tabs -->
+  <view class="tabs-wrapper">
+    <t-tabs value="month">
+      <t-tab-panel value="week" label="周"></t-tab-panel>
+      <t-tab-panel value="month" label="月"></t-tab-panel>
+      <t-tab-panel value="year" label="年"></t-tab-panel>
+    </t-tabs>
+  </view>
+
+  <scroll-view class="content" scroll-y>
+    <!-- 最近 5 月 + 汇总 + 伪折线图（按月） -->
+    <view class="month-selector">
+      <view class="month-tags">
+        <text class="month-tag">8月</text>
+        <text class="month-tag">9月</text>
+        <text class="month-tag">10月</text>
+        <text class="month-tag">上月</text>
+        <text class="month-tag active">本月</text>
+      </view>
+      <text class="unit-text">单位：元</text>
+    </view>
+
+    <view class="summary-row">
+      <text class="summary-label">
+        总支出
+        <text class="summary-amount negative-text">- 4,520.00</text>
+      </text>
+      <text class="summary-label">
+        日均
+        <text class="summary-amount">145.80</text>
+      </text>
+    </view>
+
+    <!-- 简单柱形图模拟折线趋势 -->
+    <view class="chart-card">
+      <view class="chart-bars">
+        <view class="chart-bar-item">
+          <view class="chart-bar" style="height: 25%"></view>
+          <text class="chart-label">1</text>
+        </view>
+        <view class="chart-bar-item">
+          <view class="chart-bar" style="height: 55%"></view>
+          <text class="chart-label">5</text>
+        </view>
+        <view class="chart-bar-item">
+          <view class="chart-bar" style="height: 80%"></view>
+          <text class="chart-label">10</text>
+        </view>
+        <view class="chart-bar-item">
+          <view class="chart-bar" style="height: 60%"></view>
+          <text class="chart-label">15</text>
+        </view>
+        <view class="chart-bar-item">
+          <view class="chart-bar" style="height: 100%"></view>
+          <text class="chart-label">20</text>
+        </view>
+        <view class="chart-bar-item">
+          <view class="chart-bar" style="height: 55%"></view>
+          <text class="chart-label">25</text>
+        </view>
+        <view class="chart-bar-item">
+          <view class="chart-bar" style="height: 35%"></view>
+          <text class="chart-label">30</text>
+        </view>
+      </view>
+      <view class="chart-footer">
+        <text class="chart-desc">最近 30 天支出趋势</text>
+        <text class="chart-change">
+          较上月
+          <text class="chart-change-value">-5.8%</text>
+        </text>
+      </view>
+    </view>
+
+    <!-- 排行榜 -->
+    <view class="rank-section">
+      <view class="rank-header">
+        <text class="rank-title">月度支出排行榜</text>
+        <text class="rank-subtitle">按金额排序</text>
+      </view>
+
+      <t-cell-group>
+        <t-cell hover="{{false}}">
+          <view class="rank-item">
+            <view class="rank-left">
+              <view class="rank-badge first">1</view>
+              <view class="rank-info">
+                <text class="rank-name">餐饮</text>
+                <text class="rank-desc">共 18 笔 · 占比 32%</text>
+              </view>
+            </view>
+            <view class="rank-right">
+              <text class="rank-amount negative-text">- 1,480.00</text>
+              <text class="rank-time">本月</text>
+            </view>
+          </view>
+        </t-cell>
+
+        <t-cell hover="{{false}}">
+          <view class="rank-item">
+            <view class="rank-left">
+              <view class="rank-badge">2</view>
+              <view class="rank-info">
+                <text class="rank-name">购物</text>
+                <text class="rank-desc">共 9 笔 · 占比 25%</text>
+              </view>
+            </view>
+            <view class="rank-right">
+              <text class="rank-amount negative-text">- 1,120.00</text>
+              <text class="rank-time">本月</text>
+            </view>
+          </view>
+        </t-cell>
+
+        <t-cell hover="{{false}}">
+          <view class="rank-item">
+            <view class="rank-left">
+              <view class="rank-badge">3</view>
+              <view class="rank-info">
+                <text class="rank-name">日用</text>
+                <text class="rank-desc">共 7 笔 · 占比 18%</text>
+              </view>
+            </view>
+            <view class="rank-right">
+              <text class="rank-amount negative-text">- 820.00</text>
+              <text class="rank-time">本月</text>
+            </view>
+          </view>
+        </t-cell>
+      </t-cell-group>
+    </view>
+  </scroll-view>
+</view>
+
+

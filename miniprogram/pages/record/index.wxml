@@ -1,0 +1,131 @@
+<view class="page">
+  <!-- 顶部：支出 / 收入 Tab + 取消 -->
+  <t-navbar title="">
+    <view slot="left" class="header-left">
+      <view class="type-toggle">
+        <view class="type-toggle-inner">
+          <view class="type-item active">支出</view>
+          <view class="type-item">收入</view>
+        </view>
+      </view>
+    </view>
+    <view slot="right" class="header-right">
+      <text class="cancel-text">取消</text>
+    </view>
+  </t-navbar>
+
+  <scroll-view class="content" scroll-y>
+    <!-- 类别网格 -->
+    <view class="section">
+      <text class="section-title">选择类别</text>
+      <t-grid column="{{4}}" border="{{false}}">
+        <t-grid-item>
+          <view class="category-item active">
+            <view class="category-icon meal">🍱</view>
+            <text class="category-text">餐饮</text>
+          </view>
+        </t-grid-item>
+        <t-grid-item>
+          <view class="category-item">
+            <view class="category-icon shopping">🛍️</view>
+            <text class="category-text">购物</text>
+          </view>
+        </t-grid-item>
+        <t-grid-item>
+          <view class="category-item">
+            <view class="category-icon daily">🧴</view>
+            <text class="category-text">日用</text>
+          </view>
+        </t-grid-item>
+        <t-grid-item>
+          <view class="category-item">
+            <view class="category-icon traffic">🚇</view>
+            <text class="category-text">交通</text>
+          </view>
+        </t-grid-item>
+        <t-grid-item>
+          <view class="category-item">
+            <view class="category-icon sport">🏃‍♂️</view>
+            <text class="category-text">运动</text>
+          </view>
+        </t-grid-item>
+        <t-grid-item>
+          <view class="category-item">
+            <view class="category-icon play">🎮</view>
+            <text class="category-text">娱乐</text>
+          </view>
+        </t-grid-item>
+        <t-grid-item>
+          <view class="category-item">
+            <view class="category-icon house">🏠</view>
+            <text class="category-text">住房</text>
+          </view>
+        </t-grid-item>
+        <t-grid-item>
+          <view class="category-item">
+            <view class="category-icon more">➕</view>
+            <text class="category-text">更多</text>
+          </view>
+        </t-grid-item>
+      </t-grid>
+    </view>
+
+    <!-- 记录表单（静态） -->
+    <view class="form-card">
+      <view class="form-header">
+        <text class="form-header-left">当前类别：餐饮</text>
+        <text class="form-header-right">单位：元</text>
+      </view>
+      <view class="amount-row">
+        <text class="amount-label">支出金额（可计算）</text>
+        <text class="amount-value">128.50</text>
+      </view>
+
+      <t-cell-group>
+        <t-cell hover="{{false}}">
+          <view class="remark-row">
+            <text class="remark-icon">📝</text>
+            <text class="remark-text">备注：和朋友聚餐 · 火锅</text>
+          </view>
+        </t-cell>
+      </t-cell-group>
+
+      <view class="keyboard">
+        <view class="keyboard-main">
+          <view class="key">7</view>
+          <view class="key">8</view>
+          <view class="key">9</view>
+          <view class="key">4</view>
+          <view class="key">5</view>
+          <view class="key">6</view>
+          <view class="key">1</view>
+          <view class="key">2</view>
+          <view class="key">3</view>
+          <view class="key">0</view>
+          <view class="key">.</view>
+          <view class="key back">⌫</view>
+        </view>
+        <view class="keyboard-side">
+          <view class="side-key date">
+            <text class="side-key-icon">📅</text>
+            <text class="side-key-text">日期</text>
+            <text class="side-key-sub">12-22</text>
+          </view>
+          <view class="side-key">
+            <text class="side-key-icon">＋</text>
+            <text class="side-key-text">加</text>
+          </view>
+          <view class="side-key">
+            <text class="side-key-icon">－</text>
+            <text class="side-key-text">减</text>
+          </view>
+          <view class="side-key done">
+            <text class="side-key-text done-text">完成</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>
+
+

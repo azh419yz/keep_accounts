@@ -1,0 +1,134 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f1f5f9;
+}
+
+.subtitle {
+  font-size: 22rpx;
+  color: #9ca3af;
+}
+
+.content {
+  flex: 1;
+  padding: 24rpx 32rpx 32rpx;
+  box-sizing: border-box;
+}
+
+.card {
+  border-radius: 24rpx;
+  background-color: #ffffff;
+  border: 1rpx solid #e5e7eb;
+  padding: 24rpx 24rpx 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.card.simple {
+  padding: 16rpx 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.user-row {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.avatar-placeholder,
+.avatar-real {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 9999rpx;
+  background-color: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-title {
+  font-size: 26rpx;
+  font-weight: 500;
+  color: #0f172a;
+}
+
+.user-sub {
+  margin-top: 4rpx;
+  font-size: 20rpx;
+  color: #9ca3af;
+}
+
+.login-button {
+  margin-top: 4rpx;
+  width: 100%;
+  border-radius: 9999rpx;
+  background-color: #22c55e;
+  padding: 18rpx 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10rpx 20rpx rgba(22, 163, 74, 0.4);
+}
+
+.login-text {
+  color: #ffffff;
+  font-size: 26rpx;
+  font-weight: 500;
+}
+
+.stats-row {
+  margin-top: 12rpx;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12rpx;
+  text-align: center;
+}
+
+.stats-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.stats-value {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.stats-label {
+  margin-top: 4rpx;
+  font-size: 20rpx;
+  color: #9ca3af;
+}
+
+.simple-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.simple-title {
+  font-size: 24rpx;
+  color: #0f172a;
+}
+
+.simple-desc {
+  margin-top: 4rpx;
+  font-size: 20rpx;
+  color: #9ca3af;
+}
+
+.simple-more {
+  font-size: 32rpx;
+  color: #d1d5db;
+}
+
+

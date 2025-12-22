@@ -1,12 +1,56 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/charts/index",
+    "pages/record/index",
+    "pages/analysis/index",
+    "pages/profile/index",
     "pages/logs/logs"
   ],
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "Weixin",
-    "navigationBarBackgroundColor": "#ffffff"
+    "navigationBarTitleText": "记好帐",
+    "navigationBarBackgroundColor": "#ffffff",
+    "backgroundTextStyle": "light",
+    "backgroundColor": "#f1f5f9"
+  },
+  "tabBar": {
+    "color": "#94a3b8",
+    "selectedColor": "#2563eb",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "明细",
+        "iconPath": "assets/tab-detail.png",
+        "selectedIconPath": "assets/tab-detail-active.png"
+      },
+      {
+        "pagePath": "pages/charts/index",
+        "text": "图表",
+        "iconPath": "assets/tab-chart.png",
+        "selectedIconPath": "assets/tab-chart-active.png"
+      },
+      {
+        "pagePath": "pages/record/index",
+        "text": "记账",
+        "iconPath": "assets/tab-record.png",
+        "selectedIconPath": "assets/tab-record-active.png"
+      },
+      {
+        "pagePath": "pages/analysis/index",
+        "text": "分析",
+        "iconPath": "assets/tab-analysis.png",
+        "selectedIconPath": "assets/tab-analysis-active.png"
+      },
+      {
+        "pagePath": "pages/profile/index",
+        "text": "我的",
+        "iconPath": "assets/tab-profile.png",
+        "selectedIconPath": "assets/tab-profile-active.png"
+      }
+    ]
   },
   "componentFramework": "glass-easel",
   "lazyCodeLoading": "requiredComponents"

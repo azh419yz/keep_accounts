@@ -1,0 +1,213 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f1f5f9;
+}
+
+.subtitle {
+  font-size: 22rpx;
+  color: #9ca3af;
+}
+
+.content {
+  flex: 1;
+  padding: 24rpx 32rpx 32rpx;
+  box-sizing: border-box;
+}
+
+.bill-card {
+  border-radius: 24rpx;
+  padding: 24rpx 24rpx 20rpx;
+  background-image: linear-gradient(135deg, #2563eb, #3b82f6, #0ea5e9);
+  color: #ffffff;
+  box-shadow: 0 24rpx 60rpx rgba(30, 64, 175, 0.45);
+  margin-bottom: 32rpx;
+}
+
+.bill-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16rpx;
+}
+
+.bill-month {
+  font-size: 22rpx;
+  color: #bfdbfe;
+}
+
+.bill-days {
+  font-size: 20rpx;
+  color: #bfdbfe;
+}
+
+.bill-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16rpx;
+  margin-bottom: 16rpx;
+}
+
+.bill-grid-item {
+  font-size: 22rpx;
+}
+
+.bill-grid-label {
+  display: block;
+  margin-bottom: 6rpx;
+  font-size: 20rpx;
+  color: #dbeafe;
+}
+
+.bill-grid-value {
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+.positive-text {
+  color: #bbf7d0;
+}
+
+.negative-text {
+  color: #fecaca;
+}
+
+.bill-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 20rpx;
+}
+
+.bill-footer-left {
+  display: flex;
+  align-items: center;
+}
+
+.dot {
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 9999rpx;
+  background-color: #6ee7b7;
+  margin-right: 8rpx;
+}
+
+.bill-footer-right {
+  color: #dbeafe;
+}
+
+.section {
+  margin-top: 24rpx;
+  padding: 20rpx 24rpx;
+  border-radius: 24rpx;
+  background-color: #ffffff;
+  border-width: 1rpx;
+  border-style: solid;
+  border-color: #e5e7eb;
+}
+
+.section.space {
+  padding: 12rpx 0;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8rpx;
+}
+
+.section-title {
+  font-size: 26rpx;
+  font-weight: 500;
+  color: #0f172a;
+}
+
+.section-action {
+  font-size: 22rpx;
+  color: #2563eb;
+}
+
+.section-desc {
+  display: block;
+  margin-bottom: 16rpx;
+  font-size: 20rpx;
+  color: #9ca3af;
+}
+
+.budget-bar {
+  position: relative;
+  height: 16rpx;
+  border-radius: 9999rpx;
+  background-color: #f3f4f6;
+  overflow: hidden;
+  margin-bottom: 8rpx;
+}
+
+.budget-bar-used {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 40%;
+  background-color: #fbbf24;
+}
+
+.budget-bar-remain {
+  position: absolute;
+  left: 40%;
+  top: 0;
+  bottom: 0;
+  width: 20%;
+  background-color: #6ee7b7;
+  opacity: 0.8;
+}
+
+.budget-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 20rpx;
+}
+
+.budget-percent {
+  color: #6b7280;
+}
+
+.budget-tip {
+  color: #9ca3af;
+}
+
+.placeholder-card {
+  padding: 12rpx 16rpx;
+  border-radius: 20rpx;
+  border-style: dashed;
+  border-width: 1rpx;
+  border-color: #e5e7eb;
+}
+
+.placeholder-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6rpx;
+}
+
+.placeholder-title {
+  font-size: 24rpx;
+  color: #0f172a;
+  font-weight: 500;
+}
+
+.placeholder-tag {
+  font-size: 20rpx;
+  color: #9ca3af;
+}
+
+.placeholder-desc {
+  font-size: 20rpx;
+  color: #9ca3af;
+}
+
+

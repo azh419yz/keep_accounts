@@ -1,0 +1,58 @@
+<view class="page">
+  <t-navbar title="我的" fixed="{{false}}">
+    <view slot="subtitle" class="subtitle">个人中心</view>
+  </t-navbar>
+
+  <scroll-view class="content" scroll-y>
+    <!-- 未登录视图示意 -->
+    <view class="card">
+      <view class="user-row">
+        <view class="avatar-placeholder">👤</view>
+        <view class="user-info">
+          <text class="user-title">微信一键登录体验更好</text>
+          <text class="user-sub">登录后可以同步你的记账数据</text>
+        </view>
+      </view>
+      <view class="login-button">
+        <text class="login-text">微信一键登录</text>
+      </view>
+    </view>
+
+    <!-- 已登录示意 -->
+    <view class="card">
+      <view class="user-row">
+        <view class="avatar-real">🧑‍💻</view>
+        <view class="user-info">
+          <text class="user-title">昵称示例 · 小账同学</text>
+          <text class="user-sub">微信头像和昵称展示区域</text>
+        </view>
+      </view>
+
+      <view class="stats-row">
+        <view class="stats-item">
+          <text class="stats-value">46</text>
+          <text class="stats-label">记账天数</text>
+        </view>
+        <view class="stats-item">
+          <text class="stats-value">328</text>
+          <text class="stats-label">记账总笔数</text>
+        </view>
+        <view class="stats-item">
+          <text class="stats-value">2023.08</text>
+          <text class="stats-label">首次记账</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 其他功能预留 -->
+    <view class="card simple">
+      <view class="simple-left">
+        <text class="simple-title">更多功能占位</text>
+        <text class="simple-desc">这里可以加入「关于我们」「意见反馈」等入口</text>
+      </view>
+      <text class="simple-more">···</text>
+    </view>
+  </scroll-view>
+</view>
+
+
