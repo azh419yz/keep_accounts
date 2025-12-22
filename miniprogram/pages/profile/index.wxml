@@ -4,8 +4,8 @@
   </t-navbar>
 
   <scroll-view class="content" scroll-y>
-    <!-- 未登录视图示意 -->
-    <view class="card">
+    <!-- 未登录视图 -->
+    <view wx:if="{{!hasLogin}}" class="card">
       <view class="user-row">
         <view class="avatar-placeholder">👤</view>
         <view class="user-info">
@@ -13,34 +13,38 @@
           <text class="user-sub">登录后可以同步你的记账数据</text>
         </view>
       </view>
-      <view class="login-button">
-        <text class="login-text">微信一键登录</text>
+      <view class="login-button" bindtap="onTapLogin">
+        <text class="login-text">{{loading ? '登录中...' : '微信一键登录'}}</text>
       </view>
     </view>
 
-    <!-- 已登录示意 -->
-    <view class="card">
+    <!-- 已登录视图 -->
+    <view wx:elif="{{hasLogin}}" class="card">
       <view class="user-row">
-        <view class="avatar-real">🧑‍💻</view>
+        <image class="avatar-real" src="{{userInfo.avatarUrl}}" mode="aspectFill" />
         <view class="user-info">
-          <text class="user-title">昵称示例 · 小账同学</text>
-          <text class="user-sub">微信头像和昵称展示区域</text>
+          <text class="user-title">{{userInfo.nickName}}</text>
+          <text class="user-sub">已登录 · 云端同步你的记账数据</text>
         </view>
       </view>
 
       <view class="stats-row">
         <view class="stats-item">
-          <text class="stats-value">46</text>
+          <text class="stats-value">--</text>
           <text class="stats-label">记账天数</text>
         </view>
         <view class="stats-item">
-          <text class="stats-value">328</text>
+          <text class="stats-value">--</text>
           <text class="stats-label">记账总笔数</text>
         </view>
         <view class="stats-item">
-          <text class="stats-value">2023.08</text>
+          <text class="stats-value">--</text>
           <text class="stats-label">首次记账</text>
         </view>
+      </view>
+
+      <view class="logout-row" bindtap="onTapLogout">
+        <text class="logout-text">退出登录</text>
       </view>
     </view>
 

@@ -110,6 +110,19 @@
   color: #9ca3af;
 }
 
+.logout-row {
+  margin-top: 24rpx;
+  padding-top: 16rpx;
+  border-top: 1rpx dashed #e5e7eb;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.logout-text {
+  font-size: 24rpx;
+  color: #ef4444;
+}
+
 .simple-left {
   display: flex;
   flex-direction: column;
