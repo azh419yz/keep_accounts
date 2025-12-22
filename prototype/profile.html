@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>记好帐 - 我的</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui,
+          -system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
+      }
+    </style>
+  </head>
+  <body class="w-full h-full bg-slate-50">
+    <div class="flex flex-col h-full">
+      <!-- 顶部导航 -->
+      <header
+        class="bg-white pt-10 pb-3 px-4 shadow-sm flex items-center justify-between"
+      >
+        <span class="text-base font-semibold text-slate-900">我的</span>
+        <span class="text-[11px] text-slate-400">个人中心</span>
+      </header>
+
+      <main class="flex-1 overflow-y-auto bg-slate-50 pb-14">
+        <!-- 未登录视图（示意） -->
+        <section class="px-4 pt-4">
+          <div
+            class="rounded-2xl bg-white border border-slate-100 px-4 py-5 shadow-sm mb-3"
+          >
+            <div class="flex items-center gap-3 mb-3">
+              <div
+                class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-xl"
+              >
+                👤
+              </div>
+              <div>
+                <div class="text-sm font-medium text-slate-900">
+                  微信一键登录体验更好
+                </div>
+                <div class="text-[11px] text-slate-400">
+                  登录后可以同步你的记账数据
+                </div>
+              </div>
+            </div>
+            <button
+              class="w-full inline-flex items-center justify-center gap-1.5 rounded-full bg-green-500 text-white text-sm py-2.5 font-medium shadow-md"
+            >
+              <span class="text-base"> 微信一键登录 </span>
+            </button>
+          </div>
+
+          <!-- 已登录信息示意 -->
+          <div
+            class="rounded-2xl bg-white border border-slate-100 px-4 py-4 shadow-sm"
+          >
+            <div class="flex items-center gap-3 mb-3">
+              <div
+                class="w-12 h-12 rounded-full overflow-hidden bg-slate-100 flex items-center justify-center"
+              >
+                <span class="text-xl">🧑‍💻</span>
+              </div>
+              <div>
+                <div class="text-sm font-medium text-slate-900">
+                  昵称示例 · 小账同学
+                </div>
+                <div class="text-[11px] text-slate-400">
+                  微信头像和昵称展示区域
+                </div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-3 text-center mt-2 mb-1">
+              <div>
+                <div class="text-lg font-semibold text-slate-900">46</div>
+                <div class="text-[11px] text-slate-400">记账天数</div>
+              </div>
+              <div>
+                <div class="text-lg font-semibold text-slate-900">328</div>
+                <div class="text-[11px] text-slate-400">记账总笔数</div>
+              </div>
+              <div>
+                <div class="text-lg font-semibold text-slate-900">2023.08</div>
+                <div class="text-[11px] text-slate-400">首次记账</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 其他功能预留 -->
+        <section class="px-4 pt-4 space-y-2 pb-4">
+          <div
+            class="rounded-xl bg-white border border-dashed border-slate-200 px-3 py-2 flex items-center justify-between"
+          >
+            <div>
+              <div class="text-sm text-slate-900">更多功能占位</div>
+              <div class="text-[11px] text-slate-400">
+                这里可以加入「关于我们」「意见反馈」等入口
+              </div>
+            </div>
+            <span class="text-slate-300 text-lg">···</span>
+          </div>
+        </section>
+      </main>
+
+      <!-- 底部 TabBar -->
+      <nav
+        class="h-14 bg-white border-t border-slate-200 flex items-center justify-around text-[11px]"
+      >
+        <button class="flex flex-col items-center text-slate-400">
+          <span class="text-lg mb-0.5">📃</span>
+          <span>明细</span>
+        </button>
+        <button class="flex flex-col items-center text-slate-400">
+          <span class="text-lg mb-0.5">📈</span>
+          <span>图表</span>
+        </button>
+        <button
+          class="-mt-6 w-14 h-14 rounded-full bg-blue-600 flex items-center justify-center shadow-lg text-white text-xl font-semibold border-4 border-slate-50"
+        >
+          +
+        </button>
+        <button class="flex flex-col items-center text-slate-400">
+          <span class="text-lg mb-0.5">📊</span>
+          <span>分析</span>
+        </button>
+        <button class="flex flex-col items-center text-blue-600">
+          <span
+            class="w-6 h-6 mb-0.5 rounded-full bg-blue-50 flex items-center justify-center text-[13px]"
+            >👤</span
+          >
+          <span class="font-medium">我的</span>
+        </button>
+      </nav>
+    </div>
+  </body>
+</html>
+
+

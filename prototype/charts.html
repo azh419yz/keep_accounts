@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>记好帐 - 图表</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui,
+          -system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
+      }
+    </style>
+  </head>
+  <body class="w-full h-full bg-slate-50">
+    <div class="flex flex-col h-full">
+      <!-- 顶部导航 -->
+      <header
+        class="bg-white pt-10 pb-3 px-4 shadow-sm flex items-center justify-between"
+      >
+        <div class="flex items-center gap-2">
+          <span class="text-base font-semibold text-slate-900">图表</span>
+        </div>
+        <span class="text-[11px] text-slate-400">收支趋势与排行榜</span>
+      </header>
+
+      <!-- 收入 / 支出 下拉 -->
+      <section
+        class="bg-white px-4 pt-3 pb-2 border-b border-slate-100 flex items-center justify-between"
+      >
+        <button
+          class="inline-flex items-center px-3 py-1.5 rounded-full bg-blue-50 text-xs text-blue-600 font-medium"
+        >
+          <span class="w-1.5 h-1.5 rounded-full bg-blue-500 mr-1.5"></span>
+          支出
+          <svg
+            class="w-3 h-3 ml-1 text-blue-500"
+            viewBox="0 0 16 16"
+            fill="none"
+          >
+            <path
+              d="M4 6l4 4 4-4"
+              stroke="currentColor"
+              stroke-width="1.3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+        <div class="text-[11px] text-slate-400">
+          本月支出
+          <span class="text-red-500 font-medium">- 4,520.00</span>
+        </div>
+      </section>
+
+      <!-- 周 / 月 / 年 切换 -->
+      <section class="bg-white px-4 pt-2 pb-3 border-b border-slate-100">
+        <div
+          class="inline-flex items-center bg-slate-100 rounded-full p-1 text-xs"
+        >
+          <button
+            class="px-3 py-1 rounded-full text-slate-500 hover:text-slate-900"
+          >
+            周
+          </button>
+          <button
+            class="px-3 py-1 rounded-full bg-white text-blue-600 shadow-sm font-medium"
+          >
+            月
+          </button>
+          <button
+            class="px-3 py-1 rounded-full text-slate-500 hover:text-slate-900"
+          >
+            年
+          </button>
+        </div>
+      </section>
+
+      <!-- 折线图 & 汇总 -->
+      <main class="flex-1 overflow-y-auto bg-slate-50 pb-14">
+        <section class="px-4 pt-3">
+          <!-- 最近 5 月选择 -->
+          <div class="flex items-center justify-between text-[11px] mb-2">
+            <div class="flex gap-1">
+              <span
+                class="px-2 py-1 rounded-full text-slate-500 bg-transparent"
+                >8月</span
+              >
+              <span
+                class="px-2 py-1 rounded-full text-slate-500 bg-transparent"
+                >9月</span
+              >
+              <span
+                class="px-2 py-1 rounded-full text-slate-500 bg-transparent"
+                >10月</span
+              >
+              <span
+                class="px-2 py-1 rounded-full text-slate-500 bg-transparent"
+                >上月</span
+              >
+              <span
+                class="px-2 py-1 rounded-full text-white bg-blue-600 font-medium"
+                >本月</span
+              >
+            </div>
+            <div class="text-slate-400">单位：元</div>
+          </div>
+
+          <!-- 汇总 -->
+          <div class="flex items-center justify-between mb-2">
+            <div class="text-[11px] text-slate-500">
+              总支出
+              <span class="text-red-500 font-semibold text-sm">
+                - 4,520.00
+              </span>
+            </div>
+            <div class="text-[11px] text-slate-500">
+              日均
+              <span class="text-slate-900 font-semibold text-sm">
+                145.80
+              </span>
+            </div>
+          </div>
+
+          <!-- 伪折线图（静态） -->
+          <div
+            class="mt-2 rounded-2xl bg-gradient-to-b from-sky-50 to-slate-50 border border-slate-100 px-3 py-3"
+          >
+            <div class="flex items-end justify-between h-28 mb-3">
+              <!-- 简单条形 + 虚线模拟折线 -->
+              <div class="flex-1 flex items-end justify-between gap-2">
+                <div class="flex-1 flex flex-col items-center">
+                  <div
+                    class="w-1 rounded-full bg-sky-200"
+                    style="height: 25%"
+                  ></div>
+                  <span class="mt-1 text-[10px] text-slate-400">1</span>
+                </div>
+                <div class="flex-1 flex flex-col items-center">
+                  <div
+                    class="w-1 rounded-full bg-sky-300"
+                    style="height: 55%"
+                  ></div>
+                  <span class="mt-1 text-[10px] text-slate-400">5</span>
+                </div>
+                <div class="flex-1 flex flex-col items-center">
+                  <div
+                    class="w-1 rounded-full bg-sky-400"
+                    style="height: 80%"
+                  ></div>
+                  <span class="mt-1 text-[10px] text-slate-400">10</span>
+                </div>
+                <div class="flex-1 flex flex-col items-center">
+                  <div
+                    class="w-1 rounded-full bg-sky-300"
+                    style="height: 60%"
+                  ></div>
+                  <span class="mt-1 text-[10px] text-slate-400">15</span>
+                </div>
+                <div class="flex-1 flex flex-col items-center">
+                  <div
+                    class="w-1 rounded-full bg-sky-500"
+                    style="height: 100%"
+                  ></div>
+                  <span class="mt-1 text-[10px] text-slate-400">20</span>
+                </div>
+                <div class="flex-1 flex flex-col items-center">
+                  <div
+                    class="w-1 rounded-full bg-sky-300"
+                    style="height: 55%"
+                  ></div>
+                  <span class="mt-1 text-[10px] text-slate-400">25</span>
+                </div>
+                <div class="flex-1 flex flex-col items-center">
+                  <div
+                    class="w-1 rounded-full bg-sky-200"
+                    style="height: 35%"
+                  ></div>
+                  <span class="mt-1 text-[10px] text-slate-400">30</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between text-[10px]">
+              <span class="text-slate-400">最近 30 天支出趋势</span>
+              <span class="inline-flex items-center text-emerald-500">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1"></span>
+                较上月 -5.8%
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 排行榜 -->
+        <section class="px-4 pt-4">
+          <div class="flex items-center justify-between mb-2">
+            <h2 class="text-sm font-medium text-slate-900">月度支出排行榜</h2>
+            <span class="text-[11px] text-slate-400">按金额排序</span>
+          </div>
+
+          <div class="space-y-2 pb-4">
+            <!-- 第一名 -->
+            <article
+              class="flex items-center justify-between rounded-xl bg-white px-3 py-2 shadow-[0_1px_3px_rgba(15,23,42,0.06)]"
+            >
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-7 h-7 rounded-full bg-amber-50 border border-amber-200 flex items-center justify-center text-[11px] text-amber-500 font-semibold"
+                >
+                  1
+                </div>
+                <div>
+                  <div class="text-sm font-medium text-slate-900">餐饮</div>
+                  <div class="text-[11px] text-slate-400">
+                    共 18 笔 · 占比 32%
+                  </div>
+                </div>
+              </div>
+              <div class="text-right">
+                <div class="text-sm font-semibold text-red-500">- 1,480.00</div>
+                <div class="text-[11px] text-slate-400">本月</div>
+              </div>
+            </article>
+
+            <!-- 第二名 -->
+            <article
+              class="flex items-center justify-between rounded-xl bg-white px-3 py-2 shadow-[0_1px_3px_rgba(15,23,42,0.06)]"
+            >
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-7 h-7 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-[11px] text-slate-500 font-semibold"
+                >
+                  2
+                </div>
+                <div>
+                  <div class="text-sm font-medium text-slate-900">购物</div>
+                  <div class="text-[11px] text-slate-400">
+                    共 9 笔 · 占比 25%
+                  </div>
+                </div>
+              </div>
+              <div class="text-right">
+                <div class="text-sm font-semibold text-red-500">- 1,120.00</div>
+                <div class="text-[11px] text-slate-400">本月</div>
+              </div>
+            </article>
+
+            <!-- 第三名 -->
+            <article
+              class="flex items-center justify-between rounded-xl bg-white px-3 py-2 shadow-[0_1px_3px_rgba(15,23,42,0.06)]"
+            >
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-7 h-7 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-[11px] text-slate-500 font-semibold"
+                >
+                  3
+                </div>
+                <div>
+                  <div class="text-sm font-medium text-slate-900">日用</div>
+                  <div class="text-[11px] text-slate-400">
+                    共 7 笔 · 占比 18%
+                  </div>
+                </div>
+              </div>
+              <div class="text-right">
+                <div class="text-sm font-semibold text-red-500">- 820.00</div>
+                <div class="text-[11px] text-slate-400">本月</div>
+              </div>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <!-- 底部 TabBar -->
+      <nav
+        class="h-14 bg-white border-t border-slate-200 flex items-center justify-around text-[11px]"
+      >
+        <button class="flex flex-col items-center text-slate-400">
+          <span class="text-lg mb-0.5">📃</span>
+          <span>明细</span>
+        </button>
+        <button class="flex flex-col items-center text-blue-600">
+          <span
+            class="w-6 h-6 mb-0.5 rounded-full bg-blue-50 flex items-center justify-center text-[13px]"
+            >📈</span
+          >
+          <span class="font-medium">图表</span>
+        </button>
+        <button
+          class="-mt-6 w-14 h-14 rounded-full bg-blue-600 flex items-center justify-center shadow-lg text-white text-xl font-semibold border-4 border-slate-50"
+        >
+          +
+        </button>
+        <button class="flex flex-col items-center text-slate-400">
+          <span class="text-lg mb-0.5">📊</span>
+          <span>分析</span>
+        </button>
+        <button class="flex flex-col items-center text-slate-400">
+          <span class="text-lg mb-0.5">👤</span>
+          <span>我的</span>
+        </button>
+      </nav>
+    </div>
+  </body>
+</html>
+
+

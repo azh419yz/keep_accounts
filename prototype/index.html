@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>「记好帐」原型预览</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* 模拟 iPhone 15 Pro 设备外观：约 430x932，圆角 + 边框 */
+      .device-shell {
+        border-radius: 44px;
+        box-shadow:
+          0 20px 40px rgba(15, 23, 42, 0.4),
+          0 0 0 1px rgba(148, 163, 184, 0.4);
+        background: radial-gradient(circle at top, #1f2937, #020617);
+        padding: 10px;
+      }
+
+      .device-screen {
+        border-radius: 36px;
+        overflow: hidden;
+        background: #f5f6fa;
+        width: 430px;
+        height: 932px;
+      }
+
+      /* 顶部“灵动岛”/状态栏占位 */
+      .device-notch {
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 160px;
+        height: 32px;
+        border-radius: 999px;
+        background: #020617;
+      }
+
+      .device-inner {
+        position: relative;
+        width: 430px;
+        height: 932px;
+      }
+
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-radius: 32px;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-slate-900 text-slate-50">
+    <div class="max-w-7xl mx-auto py-8 px-4">
+      <header class="mb-8">
+        <h1 class="text-2xl font-semibold tracking-tight mb-1">
+          「记好帐」小程序原型
+        </h1>
+        <p class="text-sm text-slate-300">
+          使用 Tailwind CSS + TDesign 风格，所有界面以 iPhone 15 Pro 尺寸在下方平铺展示。
+        </p>
+      </header>
+
+      <div
+        class="grid gap-8 xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-1 justify-items-center"
+      >
+        <!-- 明细 / 首页 -->
+        <section class="flex flex-col items-center gap-3">
+          <div class="text-sm font-medium text-slate-100">首页 · 明细</div>
+          <div class="device-shell">
+            <div class="device-inner">
+              <div class="device-notch"></div>
+              <div class="device-screen">
+                <iframe src="home.html" title="首页明细"></iframe>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 图表 -->
+        <section class="flex flex-col items-center gap-3">
+          <div class="text-sm font-medium text-slate-100">图表</div>
+          <div class="device-shell">
+            <div class="device-inner">
+              <div class="device-notch"></div>
+              <div class="device-screen">
+                <iframe src="charts.html" title="图表"></iframe>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 记账 -->
+        <section class="flex flex-col items-center gap-3">
+          <div class="text-sm font-medium text-slate-100">记账</div>
+          <div class="device-shell">
+            <div class="device-inner">
+              <div class="device-notch"></div>
+              <div class="device-screen">
+                <iframe src="record.html" title="记账"></iframe>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 分析 -->
+        <section class="flex flex-col items-center gap-3">
+          <div class="text-sm font-medium text-slate-100">分析</div>
+          <div class="device-shell">
+            <div class="device-inner">
+              <div class="device-notch"></div>
+              <div class="device-screen">
+                <iframe src="analysis.html" title="分析"></iframe>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 我的 -->
+        <section class="flex flex-col items-center gap-3">
+          <div class="text-sm font-medium text-slate-100">我的</div>
+          <div class="device-shell">
+            <div class="device-inner">
+              <div class="device-notch"></div>
+              <div class="device-screen">
+                <iframe src="profile.html" title="我的"></iframe>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>
+
+

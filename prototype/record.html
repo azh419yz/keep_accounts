@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>记好帐 - 记账</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui,
+          -system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
+      }
+    </style>
+  </head>
+  <body class="w-full h-full bg-slate-50">
+    <div class="flex flex-col h-full">
+      <!-- 顶部：支出 / 收入 Tab + 取消 -->
+      <header
+        class="bg-white pt-10 pb-3 px-4 shadow-sm flex items-center justify-between"
+      >
+        <div
+          class="inline-flex items-center bg-slate-100 rounded-full p-1 text-xs"
+        >
+          <button
+            class="px-3 py-1 rounded-full bg-white text-red-500 shadow-sm font-medium"
+          >
+            支出
+          </button>
+          <button
+            class="px-3 py-1 rounded-full text-slate-500 hover:text-slate-900"
+          >
+            收入
+          </button>
+        </div>
+        <button class="text-xs text-slate-400">取消</button>
+      </header>
+
+      <!-- 类别网格 -->
+      <main class="flex-1 overflow-y-auto bg-slate-50 pb-4">
+        <section class="px-4 pt-3">
+          <h2 class="text-xs text-slate-500 mb-2">选择类别</h2>
+          <div class="grid grid-cols-4 gap-3 text-center text-[11px]">
+            <button
+              class="flex flex-col items-center gap-1 py-2 rounded-xl bg-white shadow-sm border border-blue-100 text-blue-600"
+            >
+              <span
+                class="w-9 h-9 rounded-full bg-blue-50 flex items-center justify-center text-base"
+                >🍱</span
+              >
+              <span>餐饮</span>
+            </button>
+            <button class="flex flex-col items-center gap-1 py-2 rounded-xl bg-white">
+              <span
+                class="w-9 h-9 rounded-full bg-pink-50 flex items-center justify-center text-base"
+                >🛍️</span
+              >
+              <span>购物</span>
+            </button>
+            <button class="flex flex-col items-center gap-1 py-2 rounded-xl bg-white">
+              <span
+                class="w-9 h-9 rounded-full bg-emerald-50 flex items-center justify-center text-base"
+                >🧴</span
+              >
+              <span>日用</span>
+            </button>
+            <button class="flex flex-col items-center gap-1 py-2 rounded-xl bg-white">
+              <span
+                class="w-9 h-9 rounded-full bg-sky-50 flex items-center justify-center text-base"
+                >🚇</span
+              >
+              <span>交通</span>
+            </button>
+            <button class="flex flex-col items-center gap-1 py-2 rounded-xl bg-white">
+              <span
+                class="w-9 h-9 rounded-full bg-lime-50 flex items-center justify-center text-base"
+                >🏃‍♂️</span
+              >
+              <span>运动</span>
+            </button>
+            <button class="flex flex-col items-center gap-1 py-2 rounded-xl bg-white">
+              <span
+                class="w-9 h-9 rounded-full bg-violet-50 flex items-center justify-center text-base"
+                >🎮</span
+              >
+              <span>娱乐</span>
+            </button>
+            <button class="flex flex-col items-center gap-1 py-2 rounded-xl bg-white">
+              <span
+                class="w-9 h-9 rounded-full bg-amber-50 flex items-center justify-center text-base"
+                >🏠</span
+              >
+              <span>住房</span>
+            </button>
+            <button class="flex flex-col items-center gap-1 py-2 rounded-xl bg-white">
+              <span
+                class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-base"
+                >➕</span
+              >
+              <span>更多</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- 记录表单 -->
+        <section class="px-4 pt-4">
+          <div
+            class="rounded-2xl bg-white shadow-[0_2px_8px_rgba(15,23,42,0.08)] border border-slate-100 overflow-hidden"
+          >
+            <!-- 金额显示 -->
+            <div class="px-4 pt-3 pb-1 flex items-center justify-between">
+              <div class="text-[11px] text-slate-400">当前类别：餐饮</div>
+              <div class="text-xs text-slate-400">单位：元</div>
+            </div>
+            <div class="px-4 pb-2 text-right">
+              <div class="text-[11px] text-slate-400 mb-1">
+                支出金额（可计算）
+              </div>
+              <div class="text-3xl font-semibold text-slate-900 tracking-tight">
+                128.50
+              </div>
+            </div>
+
+            <!-- 备注输入（静态） -->
+            <div
+              class="px-4 py-2 border-t border-slate-100 text-[13px] text-slate-500 flex items-center"
+            >
+              <span class="mr-2 text-slate-400">📝</span>
+              <span class="truncate">备注：和朋友聚餐 · 火锅</span>
+            </div>
+
+            <!-- 日期 + 计算键盘 -->
+            <div class="flex border-t border-slate-100">
+              <!-- 右侧九宫格 + 功能键 -->
+              <div class="flex-1 grid grid-cols-3 text-center text-lg">
+                <button class="py-3 border-r border-b border-slate-100">7</button>
+                <button class="py-3 border-r border-b border-slate-100">8</button>
+                <button class="py-3 border-b border-slate-100">9</button>
+                <button class="py-3 border-r border-b border-slate-100">4</button>
+                <button class="py-3 border-r border-b border-slate-100">5</button>
+                <button class="py-3 border-b border-slate-100">6</button>
+                <button class="py-3 border-r border-b border-slate-100">1</button>
+                <button class="py-3 border-r border-b border-slate-100">2</button>
+                <button class="py-3 border-b border-slate-100">3</button>
+                <button class="py-3 border-r border-b border-slate-100">0</button>
+                <button class="py-3 border-r border-b border-slate-100">.</button>
+                <button class="py-3 border-b border-slate-100 text-base">
+                  ⌫
+                </button>
+              </div>
+
+              <!-- 左侧功能列 -->
+              <div class="w-20 flex flex-col text-xs">
+                <button
+                  class="flex-1 border-l border-b border-slate-100 flex flex-col items-center justify-center text-slate-600"
+                >
+                  <span class="text-base mb-0.5">📅</span>
+                  <span>日期</span>
+                  <span class="text-[10px] text-slate-400 mt-0.5">12-22</span>
+                </button>
+                <button
+                  class="flex-1 border-l border-b border-slate-100 flex flex-col items-center justify-center text-slate-600"
+                >
+                  <span class="text-base mb-0.5">＋</span>
+                  <span>加</span>
+                </button>
+                <button
+                  class="flex-1 border-l border-b border-slate-100 flex flex-col items-center justify-center text-slate-600"
+                >
+                  <span class="text-base mb-0.5">－</span>
+                  <span>减</span>
+                </button>
+                <button
+                  class="flex-1 border-l border-slate-100 bg-blue-600 text-white text-sm font-medium flex items-center justify-center"
+                >
+                  完成
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- 底部 TabBar -->
+      <nav
+        class="h-14 bg-white border-t border-slate-200 flex items-center justify-around text-[11px]"
+      >
+        <button class="flex flex-col items-center text-slate-400">
+          <span class="text-lg mb-0.5">📃</span>
+          <span>明细</span>
+        </button>
+        <button class="flex flex-col items-center text-slate-400">
+          <span class="text-lg mb-0.5">📈</span>
+          <span>图表</span>
+        </button>
+        <button
+          class="-mt-6 w-14 h-14 rounded-full bg-blue-600 flex items-center justify-center shadow-lg text-white text-xl font-semibold border-4 border-slate-50"
+        >
+          +
+        </button>
+        <button class="flex flex-col items-center text-slate-400">
+          <span class="text-lg mb-0.5">📊</span>
+          <span>分析</span>
+        </button>
+        <button class="flex flex-col items-center text-slate-400">
+          <span class="text-lg mb-0.5">👤</span>
+          <span>我的</span>
+        </button>
+      </nav>
+    </div>
+  </body>
+</html>
+
+
