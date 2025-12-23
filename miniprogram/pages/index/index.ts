@@ -15,8 +15,8 @@ interface BillGroup {
   date: string
   dateText: string
   weekday: string
-  type: 'expense' | 'income'
-  dayTotal: string
+  dayNetTotal: string
+  dayNetType: 'expense' | 'income'
   bills: BillItem[]
 }
 
@@ -27,17 +27,40 @@ Component({
     currentMonthText: '2025年 12月',
     pickerDate: '2025-12',
     maxDate: '',
-    monthExpense: '4,520.00',
-    monthIncome: '8,800.00',
-    expenseChange: '-5.8%',
-    incomeChange: '+12.3%',
+    monthExpense: '0.00',
+    monthIncome: '0.00',
+    expenseChange: '0%', // 暂不计算环比
+    incomeChange: '0%',
     billGroups: [] as BillGroup[],
     deleteBtnConfig: [
       {
         text: '删除',
+        style: 'background-color: #ef4444; color: #fff; width: 144rpx; display: flex; align-items: center; justify-content: center;',
         className: 'swipe-delete-btn',
       },
     ],
+    // Interaction State
+    showCategoryPicker: false,
+    showAmountInput: false,
+    editingBill: null as any, // Current editing bill object
+    inputAmount: '0.00',
+    inputCategoryName: '',
+    inputDate: '',
+    inputType: 'expense',
+    editingRemarkId: '', // ID of the bill currently editing remark
+    remarkInputValue: '', // Temporary remark value
+  },
+
+  pageLifetimes: {
+    show() {
+      if (typeof this.getTabBar === 'function' &&
+        this.getTabBar()) {
+        this.getTabBar().setData({
+          selected: 0 // 假设明细是第一个tab
+        })
+      }
+      this.fetchBills()
+    }
   },
 
   lifetimes: {
@@ -46,129 +69,140 @@ Component({
       const now = new Date()
       const year = now.getFullYear()
       const month = String(now.getMonth() + 1).padStart(2, '0')
+
+      // 初始化为当前日期
       this.setData({
         maxDate: `${year}-${month}`,
+        currentYear: year,
+        currentMonth: now.getMonth() + 1,
+        currentMonthText: `${year}年 ${month}月`,
+        pickerDate: `${year}-${month}`
       })
-      this.loadMockData()
+      // attached时可能show也会触发，这里可以依赖show
     },
   },
 
   methods: {
-    // 加载mock数据
-    loadMockData() {
-      const mockBills: BillItem[] = [
-        {
-          id: '1',
-          type: 'expense',
-          title: '午餐',
-          category: '餐饮',
-          categoryClass: 'meal',
-          icon: '🍱',
-          remark: '公司附近快餐',
-          amount: '32.00',
-          time: '12:08',
-          date: '2025-12-22',
-        },
-        {
-          id: '2',
-          type: 'expense',
-          title: '地铁',
-          category: '交通',
-          categoryClass: 'traffic',
-          icon: '🚇',
-          remark: '上班',
-          amount: '6.00',
-          time: '08:42',
-          date: '2025-12-22',
-        },
-        {
-          id: '3',
-          type: 'expense',
-          title: '水电费',
-          category: '日用',
-          categoryClass: 'bill',
-          icon: '🧾',
-          remark: '12月账单',
-          amount: '320.00',
-          time: '21:10',
-          date: '2025-12-21',
-        },
-        {
-          id: '4',
-          type: 'expense',
-          title: '游戏充值',
-          category: '娱乐',
-          categoryClass: 'game',
-          icon: '🎮',
-          remark: '周末',
-          amount: '120.00',
-          time: '18:05',
-          date: '2025-12-21',
-        },
-        {
-          id: '5',
-          type: 'income',
-          title: '工资',
-          category: '收入',
-          categoryClass: 'income',
-          icon: '💰',
-          remark: '12月工资',
-          amount: '8,000.00',
-          time: '10:00',
-          date: '2025-12-20',
-        },
-      ]
+    // 获取账单数据
+    fetchBills() {
+      wx.showLoading({ title: '加载中...' })
+      const db = wx.cloud.database()
+      const _ = db.command
+
+      const year = this.data.currentYear
+      const month = this.data.currentMonth
+
+      // 构造月份起止时间字符串用于匹配 date 字段 "YYYY-MM"
+      // 或者使用 timestamp 范围查询
+      // 这里数据结构中 date存的是 "YYYY-MM-DD"
+      // 我们可以用正则或者字符串前缀匹配，云开发正则查询可能较慢，建议用范围
+
+      // 当月第一天
+      const startStr = `${year}-${String(month).padStart(2, '0')}-01`
+      // 下个月第一天
+      let nextMonthYear = year
+      let nextMonth = month + 1
+      if (nextMonth > 12) {
+        nextMonth = 1
+        nextMonthYear++
+      }
+      const endStr = `${nextMonthYear}-${String(nextMonth).padStart(2, '0')}-01`
+
+      db.collection('ka_bills')
+        .where({
+          date: _.gte(startStr).and(_.lt(endStr))
+        })
+        .orderBy('timestamp', 'desc') // 按时间倒序
+        .get()
+        .then(res => {
+          this.processBills(res.data as any[])
+          wx.hideLoading()
+        })
+        .catch(err => {
+          console.error('加载失败', err)
+          wx.hideLoading()
+          wx.showToast({ title: '加载失败', icon: 'none' })
+        })
+    },
+
+    // 处理账单数据
+    processBills(bills: any[]) {
+      // 计算月度收支
+      const monthIncome = bills
+        .filter(b => b.type === 'income')
+        .reduce((sum, b) => sum + b.amount, 0)
+
+      const monthExpense = bills
+        .filter(b => b.type === 'expense')
+        .reduce((sum, b) => sum + b.amount, 0)
 
       // 按日期分组
-      const groupsMap = new Map<string, BillItem[]>()
-      mockBills.forEach((bill) => {
+      const groupsMap = new Map<string, any[]>()
+      bills.forEach(bill => {
         if (!groupsMap.has(bill.date)) {
           groupsMap.set(bill.date, [])
         }
         groupsMap.get(bill.date)!.push(bill)
       })
 
-      // 转换为分组数据
+      // 转换为View Model
       const billGroups: BillGroup[] = Array.from(groupsMap.entries())
-        .map(([date, bills]) => {
+        .map(([date, dayBills]) => {
           const dateObj = new Date(date)
           const month = dateObj.getMonth() + 1
           const day = dateObj.getDate()
           const weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
           const weekday = weekdays[dateObj.getDay()]
 
-          // 计算当日总额
-          const dayTotal = bills
-            .reduce((sum, bill) => {
-              const amount = parseFloat(bill.amount.replace(/,/g, ''))
-              return sum + (bill.type === 'expense' ? -amount : amount)
-            }, 0)
-            .toFixed(2)
-            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+          // 计算当日
+          const dayExpense = dayBills
+            .filter(b => b.type === 'expense')
+            .reduce((sum, b) => sum + b.amount, 0)
 
-          // 判断当日主要类型（支出或收入）
-          const expenseTotal = bills
-            .filter((b) => b.type === 'expense')
-            .reduce((sum, b) => sum + parseFloat(b.amount.replace(/,/g, '')), 0)
-          const incomeTotal = bills
-            .filter((b) => b.type === 'income')
-            .reduce((sum, b) => sum + parseFloat(b.amount.replace(/,/g, '')), 0)
-          const mainType = expenseTotal > incomeTotal ? 'expense' : 'income'
+          const dayIncome = dayBills
+            .filter(b => b.type === 'income')
+            .reduce((sum, b) => sum + b.amount, 0)
+
+          const net = dayIncome - dayExpense
+          const dayNetType = (net >= 0 ? 'income' : 'expense') as 'expense' | 'income'
+          // 格式化金额，正数加+，负数自带-
+          // 注意：dayExpense是正数，Income - Expense 得到的结果：
+          // 如果支出 > 收入，net是负数，toFixed(2) 会变成 "-100.00"
+          // 如果收入 > 支出，net是正数，toFixed(2) 会变成 "100.00"，需手动补+
+          const sign = net > 0 ? '+' : ''
+          const dayNetTotal = `${sign}${net.toFixed(2)}`
 
           return {
             date,
             dateText: `${month}月${day}日`,
             weekday,
-            type: mainType,
-            dayTotal: Math.abs(parseFloat(dayTotal.replace(/,/g, '')))
-              .toFixed(2)
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ','),
-            bills: bills.sort((a, b) => b.time.localeCompare(a.time)), // 按时间倒序
+            dayNetTotal,
+            dayNetType,
+            bills: dayBills.map(b => ({
+              id: b._id, // 注意数据库是 _id
+              type: b.type,
+              title: b.categoryName, // 简单用分类名做标题
+              category: b.categoryName,
+              categoryClass: b.categoryClass,
+              icon: b.categoryIcon || '💰', // 兼容旧数据或fallback
+              remark: b.remark,
+              amount: b.amount.toFixed(2),
+              time: b.time,
+              date: b.date
+            }))
           }
         })
-        .sort((a, b) => b.date.localeCompare(a.date)) // 按日期倒序
+        // 按日期倒序 (map遍历顺序不一定保证，所以再排一次)
+        .sort((a, b) => b.date.localeCompare(a.date))
 
-      this.setData({ billGroups })
+      this.setData({
+        billGroups,
+        monthExpense: monthExpense.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+        monthIncome: monthIncome.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+        // 环比暂未实现，设为null或默认
+        expenseChange: '',
+        incomeChange: ''
+      })
     },
 
     // 月份选择器变化
@@ -184,29 +218,226 @@ Component({
         currentMonth: month,
         currentMonthText: `${year}年 ${month}月`,
         pickerDate: dateStr,
+      }, () => {
+        this.fetchBills()
       })
+    },
 
-      // 这里可以重新加载该月份的数据
-      wx.showToast({
-        title: `已切换到${month}月`,
-        icon: 'none',
-        duration: 1500,
+    // --- Interaction Handlers ---
+
+    // 0. Add Record
+    onAddRecord() {
+      this.setData({
+        editingBill: null, // Reset editing
+        inputType: 'expense', // Default
+        showCategoryPicker: true
       })
+    },
+
+    // 1. Edit Category (or Add)
+    onEditCategory(e: WechatMiniprogram.TouchEvent) {
+      const billId = e.currentTarget.dataset.billId
+      const bill = this.findBill(billId)
+      if (bill) {
+        this.setData({
+          editingBill: bill,
+          inputType: bill.type,
+          showCategoryPicker: true
+        })
+      }
+    },
+
+    onCategoryPickerClose() {
+      this.setData({ showCategoryPicker: false })
+    },
+
+    onCategorySelected(e: any) {
+      const { categoryId, category, type } = e.detail // Fixed destructuring
+
+      const bill = this.data.editingBill
+      if (bill) {
+        // Edit Mode: Update DB
+        const db = wx.cloud.database()
+        wx.showLoading({ title: '保存中' })
+        db.collection('ka_bills').doc(bill.id).update({
+          data: {
+            categoryId: categoryId,
+            categoryName: category.name,
+            categoryIcon: category.icon,
+            categoryClass: category.class,
+            type: type
+          },
+          success: () => {
+            wx.hideLoading()
+            this.fetchBills()
+          },
+          fail: () => {
+            wx.hideLoading()
+            wx.showToast({ title: '保存失败', icon: 'none' })
+          }
+        })
+      } else {
+        // Add Mode: Continue to Amount Input
+        this.setData({
+          inputCategoryName: category.name,
+          inputCategoryId: categoryId, // Need to store temporary
+          inputCategory: category,
+          inputType: type,
+          inputAmount: '0.00', // Reset
+          inputDate: '', // will init in component
+          showAmountInput: true
+        })
+      }
+    },
+
+    // 2. Edit Amount
+    onEditAmount(e: WechatMiniprogram.TouchEvent) {
+      const billId = e.currentTarget.dataset.billId
+      const bill = this.findBill(billId)
+      console.log('Edit Amount', bill)
+      if (bill) {
+        this.setData({
+          editingBill: bill,
+          inputAmount: bill.amount,
+          inputCategoryName: bill.category,
+          inputDate: bill.date,
+          inputType: bill.type,
+          showAmountInput: true
+        })
+      }
+    },
+
+    onAmountInputClose() {
+      this.setData({ showAmountInput: false })
+    },
+
+    onAmountConfirmed(e: any) {
+      const { amount, date } = e.detail
+      const bill = this.data.editingBill
+      const now = new Date()
+      const [year, month, day] = date.split('-').map(Number)
+      const targetDate = new Date(year, month - 1, day, now.getHours(), now.getMinutes(), now.getSeconds())
+      const timeStr = `${String(targetDate.getHours()).padStart(2, '0')}:${String(targetDate.getMinutes()).padStart(2, '0')}`
+
+      const db = wx.cloud.database()
+
+      if (bill) {
+        // Edit Mode
+        wx.showLoading({ title: '保存中' })
+        db.collection('ka_bills').doc(bill.id).update({
+          data: {
+            amount: amount,
+            date: date,
+            time: timeStr,
+            timestamp: targetDate.getTime()
+          },
+          success: () => {
+            wx.hideLoading()
+            this.fetchBills()
+          },
+          fail: () => {
+            wx.hideLoading()
+            wx.showToast({ title: '保存失败', icon: 'none' })
+          }
+        })
+      } else {
+        // Add Mode
+        const category = this.data.inputCategory
+        wx.showLoading({ title: '保存中' })
+        db.collection('ka_bills').add({
+          data: {
+            type: this.data.inputType,
+            amount: amount,
+            categoryId: this.data.inputCategoryId,
+            categoryName: category.name,
+            categoryIcon: category.icon, // Fixed
+            categoryClass: category.class,
+            date: date,
+            time: timeStr,
+            timestamp: targetDate.getTime(),
+            remark: '' // Default empty logic
+          },
+          success: () => {
+            wx.hideLoading()
+            wx.showToast({ title: '记账成功', icon: 'success' })
+            this.fetchBills()
+            this.setData({ showAmountInput: false })
+          },
+          fail: () => {
+            wx.hideLoading()
+            wx.showToast({ title: '保存失败', icon: 'none' })
+          }
+        })
+      }
+    },
+
+    // 3. Edit Remark
+    onEditRemark(e: WechatMiniprogram.TouchEvent) {
+      const billId = e.currentTarget.dataset.billId
+      const remark = e.currentTarget.dataset.remark
+      this.setData({
+        editingRemarkId: billId,
+        remarkInputValue: remark
+      })
+    },
+
+    onRemarkInput(e: any) {
+      this.setData({ remarkInputValue: e.detail.value })
+    },
+
+    onRemarkConfirm(e: any) {
+      // Save remark
+      const billId = this.data.editingRemarkId // currently editing
+      // If triggered by blur, might click other things.
+      // e.type === 'confirm' from input
+      this.saveRemark(billId, this.data.remarkInputValue)
+    },
+
+    onRemarkBlur(e: any) {
+      // Optional: Save on blur
+      if (this.data.editingRemarkId) {
+        this.saveRemark(this.data.editingRemarkId, this.data.remarkInputValue)
+      }
+    },
+
+    saveRemark(billId: string, remark: string) {
+      if (!billId) return
+
+      this.setData({ editingRemarkId: '' }) // Exit edit mode immediately
+
+      const db = wx.cloud.database()
+      db.collection('ka_bills').doc(billId).update({
+        data: { remark: remark },
+        success: () => {
+          // Local update optimization possible, for now fetch
+          this.fetchBills()
+        }
+      })
+    },
+
+    // Helper
+    findBill(id: string) {
+      for (const group of this.data.billGroups) {
+        const bill = group.bills.find(b => b.id === id)
+        if (bill) return bill
+      }
+      return null
     },
 
     // 左滑删除按钮点击
     onSwipeCellClick(e: WechatMiniprogram.CustomEvent) {
-      const { action, data } = e.detail
-      if (action === 'right' && data?.text === '删除') {
+      // 兼容处理
+      const item = e.detail.item || e.detail
+
+      if (item && item.text === '删除') {
         const billId = e.currentTarget.dataset.billId as string
-        const date = e.currentTarget.dataset.date as string
 
         wx.showModal({
           title: '确认删除',
           content: '确定要删除这条记录吗？',
           success: (res) => {
             if (res.confirm) {
-              this.deleteBill(billId, date)
+              this.deleteBill(billId)
             }
           },
         })
@@ -214,59 +445,20 @@ Component({
     },
 
     // 删除账单
-    deleteBill(billId: string, date: string) {
-      const billGroups = this.data.billGroups.map((group) => {
-        if (group.date === date) {
-          const bills = group.bills.filter((bill) => bill.id !== billId)
-
-          if (bills.length === 0) {
-            return null // 标记为空组，后续过滤
-          }
-
-          // 重新计算当日总额
-          const dayTotal = bills
-            .reduce((sum, bill) => {
-              const amount = parseFloat(bill.amount.replace(/,/g, ''))
-              return sum + (bill.type === 'expense' ? -amount : amount)
-            }, 0)
-            .toFixed(2)
-            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-
-          const expenseTotal = bills
-            .filter((b) => b.type === 'expense')
-            .reduce((sum, b) => sum + parseFloat(b.amount.replace(/,/g, '')), 0)
-          const incomeTotal = bills
-            .filter((b) => b.type === 'income')
-            .reduce((sum, b) => sum + parseFloat(b.amount.replace(/,/g, '')), 0)
-          const mainType = expenseTotal > incomeTotal ? 'expense' : 'income'
-
-          return {
-            ...group,
-            type: mainType,
-            dayTotal: Math.abs(parseFloat(dayTotal.replace(/,/g, '')))
-              .toFixed(2)
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ','),
-            bills,
-          }
-        }
-        return group
-      })
-
-      // 过滤掉空组
-      const filteredGroups = billGroups.filter((g) => g !== null) as BillGroup[]
-
-      this.setData({ billGroups: filteredGroups })
-
-      wx.showToast({
-        title: '已删除',
-        icon: 'success',
-      })
-
-      // 这里可以调用云数据库删除接口
-      // if (wx.cloud) {
-      //   const db = wx.cloud.database()
-      //   db.collection('ka_bills').doc(billId).remove()
-      // }
+    deleteBill(billId: string) {
+      wx.showLoading({ title: '删除中' })
+      const db = wx.cloud.database()
+      db.collection('ka_bills').doc(billId).remove()
+        .then(() => {
+          wx.hideLoading()
+          wx.showToast({ title: '已删除' })
+          this.fetchBills() // 重新加载
+        })
+        .catch(err => {
+          wx.hideLoading()
+          console.error('删除失败', err)
+          wx.showToast({ title: '删除失败', icon: 'none' })
+        })
     },
   },
 })

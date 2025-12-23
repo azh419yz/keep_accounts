@@ -17,3 +17,5 @@ miniprogram/miniprogram_npm
 .env.production
 
 dist
+
+.agent

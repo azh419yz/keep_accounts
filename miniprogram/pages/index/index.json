@@ -4,7 +4,9 @@
     "t-cell": "tdesign-miniprogram/cell/cell",
     "t-cell-group": "tdesign-miniprogram/cell-group/cell-group",
     "t-divider": "tdesign-miniprogram/divider/divider",
-    "t-swipe-cell": "tdesign-miniprogram/swipe-cell/swipe-cell"
+    "t-swipe-cell": "tdesign-miniprogram/swipe-cell/swipe-cell",
+    "category-picker": "/components/category-picker/index",
+    "amount-input": "/components/amount-input/index"
   },
   "navigationBarTitleText": "记好帐"
 }

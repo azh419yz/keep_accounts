@@ -1,0 +1,156 @@
+.popup-card {
+  background-color: #fff;
+  border-radius: 24rpx 24rpx 0 0;
+  overflow: hidden;
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 24rpx 32rpx;
+  border-bottom: 1rpx solid #f1f5f9;
+}
+
+.form-header-left {
+  font-size: 28rpx;
+  color: #334155;
+  font-weight: 500;
+}
+
+.form-header-right {
+  font-size: 24rpx;
+  color: #94a3b8;
+}
+
+.input-area {
+  padding: 32rpx 32rpx 24rpx;
+}
+
+.amount-row {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 24rpx;
+}
+
+.amount-label {
+  font-size: 32rpx;
+  font-weight: 600;
+  margin-right: 16rpx;
+  color: #0f172a;
+}
+
+.amount-value {
+  font-size: 64rpx;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.keyboard {
+  display: flex;
+  height: 480rpx;
+  background-color: #f8fafc;
+}
+
+.keyboard-main {
+  flex: 3;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 8rpx;
+}
+
+.key {
+  width: 33.33%;
+  height: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+  font-weight: 500;
+  color: #334155;
+  background-color: #fff;
+  border: 1rpx solid #e2e8f0;
+  box-sizing: border-box;
+  border-radius: 12rpx;
+  margin: 0;
+  box-shadow: 0 2rpx 0 #cbd5e1;
+}
+
+.key:active {
+  background-color: #f1f5f9;
+  box-shadow: none;
+  transform: translateY(2rpx);
+}
+
+.back {
+  font-size: 36rpx;
+}
+
+.keyboard-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 8rpx 8rpx 8rpx 0;
+}
+
+.side-key {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  border: 1rpx solid #e2e8f0;
+  box-sizing: border-box;
+  border-radius: 12rpx;
+  margin-bottom: 8rpx;
+  box-shadow: 0 2rpx 0 #cbd5e1;
+}
+
+.side-key:active {
+  background-color: #f1f5f9;
+  box-shadow: none;
+  transform: translateY(2rpx);
+}
+
+.side-key.date {
+  font-size: 24rpx;
+}
+
+.side-key.done {
+  background-color: #2563eb;
+  color: #fff;
+  border-color: #1d4ed8;
+  box-shadow: 0 2rpx 0 #1e40af;
+}
+
+.side-key.done:active {
+  background-color: #1d4ed8;
+}
+
+.side-key.calculating {
+  background-color: #f59e0b;
+  border-color: #d97706;
+  box-shadow: 0 2rpx 0 #b45309;
+}
+
+.side-key-icon {
+  font-size: 32rpx;
+  margin-bottom: 4rpx;
+}
+
+.side-key-text {
+  font-size: 24rpx;
+}
+
+.side-key-sub {
+  font-size: 20rpx;
+  color: #64748b;
+  margin-top: 4rpx;
+}
+
+.done-text {
+  font-size: 32rpx;
+  font-weight: 500;
+}

@@ -1,0 +1,114 @@
+<view class="page">
+  <!-- 顶部：支出 / 收入 Tab + 取消 -->
+  <t-navbar title="">
+    <view slot="left" class="header-left">
+      <view class="type-toggle">
+        <view class="type-toggle-inner">
+          <view 
+            class="type-item {{recordType === 'expense' ? 'active' : ''}}"
+            bindtap="onRecordTypeChange"
+            data-type="expense"
+          >支出</view>
+          <view 
+            class="type-item {{recordType === 'income' ? 'active' : ''}}"
+            bindtap="onRecordTypeChange"
+            data-type="income"
+          >收入</view>
+        </view>
+      </view>
+    </view>
+    <view slot="right" class="header-right">
+      <text class="cancel-text" bindtap="onCancel">取消</text>
+    </view>
+  </t-navbar>
+
+  <scroll-view class="content" scroll-y>
+    <!-- 类别网格 -->
+    <view class="section">
+      <text class="section-title">选择类别</text>
+      <t-grid column="{{4}}" border="{{false}}">
+        <t-grid-item wx:for="{{categories}}" wx:key="id">
+          <view 
+            class="category-item {{selectedCategory === item.id ? 'active' : ''}}"
+            bindtap="onCategorySelect"
+            data-id="{{item.id}}"
+            data-name="{{item.name}}"
+          >
+            <view class="category-icon {{item.class}}">{{item.icon}}</view>
+            <text class="category-text">{{item.name}}</text>
+          </view>
+        </t-grid-item>
+      </t-grid>
+    </view>
+
+    <!-- 底部输入弹窗 -->
+    <t-popup visible="{{showKeyboard}}" placement="bottom" bind:visible-change="onPopupVisibleChange">
+      <view class="form-card popup-card">
+        <view class="form-header">
+          <text class="form-header-left">当前类别：{{selectedCategoryName}}</text>
+          <text class="form-header-right">单位：元</text>
+        </view>
+        
+        <view class="input-area">
+          <view class="amount-row">
+            <text class="amount-label">{{recordType === 'expense' ? '支出' : '收入'}}</text>
+            <text class="amount-value">{{amount || '0.00'}}</text>
+          </view>
+          
+          <view class="remark-row">
+             <t-input
+                value="{{remark}}"
+                placeholder="点击写备注..."
+                borderless="{{true}}"
+                maxlength="{{10}}"
+                bindchange="onRemarkChange"
+                custom-style="padding: 0; background: transparent;"
+              >
+                 <view slot="prefix-icon" style="margin-right: 8px">📝</view>
+              </t-input>
+          </view>
+        </view>
+
+        <view class="keyboard">
+          <view class="keyboard-main">
+            <view 
+              wx:for="{{['7','8','9','4','5','6','1','2','3','0','.']}}" 
+              wx:key="*this"
+              class="key"
+              bindtap="onKeyTap"
+              data-key="{{item}}"
+            >{{item}}</view>
+            <view class="key back" bindtap="onBackspace">⌫</view>
+          </view>
+          <view class="keyboard-side">
+            <picker
+              mode="date"
+              value="{{pickerDateValue}}"
+              bindchange="onDatePickerChange"
+              class="side-key date"
+            >
+              <view>
+                <text class="side-key-icon">📅</text>
+                <text class="side-key-text">日期</text>
+                <text class="side-key-sub">{{selectedDate}}</text>
+              </view>
+            </picker>
+            <view class="side-key" bindtap="onKeyTap" data-key="+">
+              <text class="side-key-icon">＋</text>
+              <text class="side-key-text">加</text>
+            </view>
+            <view class="side-key" bindtap="onKeyTap" data-key="-">
+              <text class="side-key-icon">－</text>
+              <text class="side-key-text">减</text>
+            </view>
+            <view class="side-key done {{isCalculating ? 'calculating' : ''}}" bindtap="handleDone">
+              <text class="side-key-text done-text">{{isCalculating ? '=' : '完成'}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </t-popup>
+  </scroll-view>
+</view>
+
+

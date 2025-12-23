@@ -1,0 +1,1 @@
+<record-form bill-id="{{billId}}" initial-target="{{target}}" />

@@ -1,13 +1,14 @@
 .page {
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: #f1f5f9;
+  overflow: hidden;
 }
 
 .header-section {
   background-color: #ffffff;
-  padding: 24rpx 32rpx 32rpx;
+  padding: 12rpx 32rpx 20rpx;
   box-sizing: border-box;
   border-bottom: 1rpx solid #e5e7eb;
 }
@@ -21,7 +22,7 @@
 .month-wrapper {
   width: 25%;
   min-width: 180rpx;
-  padding: 16rpx 20rpx;
+  padding: 12rpx 16rpx;
   border-radius: 24rpx;
   background-color: #f9fafb;
   border: 1rpx solid #e5e7eb;
@@ -31,21 +32,69 @@
   box-sizing: border-box;
 }
 
-.month-main {
+/* ... existing styles ... */
+
+.section-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 6rpx;
 }
 
-.month-text {
-  font-size: 24rpx;
+.section-total {
+  display: flex;
+  align-items: center;
+  font-size: 22rpx;
+  color: #6b7280;
+}
+
+.section-total-label {
+  margin-right: 8rpx;
+}
+
+/* ... */
+
+.bill-item-wrapper {
+  background-color: #ffffff;
+  padding: 16rpx 32rpx;
+  display: flex;
+  align-items: center;
+}
+
+.month-main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.month-text-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.month-year {
+  font-size: 20rpx;
+  color: #6b7280;
+  line-height: 1.2;
+}
+
+.month-bottom-row {
+  display: flex;
+  align-items: center;
+  margin-top: 4rpx;
+}
+
+.month-num {
+  font-size: 32rpx;
   color: #0f172a;
-  font-weight: 500;
+  font-weight: 600;
+  line-height: 1.2;
 }
 
 .month-arrow {
   font-size: 20rpx;
   color: #9ca3af;
+  margin-left: 8rpx;
 }
 
 .month-sub {
@@ -111,6 +160,7 @@
 
 .content {
   flex: 1;
+  height: 0;
   padding: 16rpx 32rpx 32rpx;
   box-sizing: border-box;
 }
@@ -121,9 +171,9 @@
 
 .section-header {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
-  margin-bottom: 16rpx;
+  margin-bottom: 12rpx;
 }
 
 .section-date {
@@ -144,13 +194,30 @@
 }
 
 .section-total {
-  font-size: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 22rpx;
   color: #6b7280;
+  flex-shrink: 0;
+}
+
+.section-total-tag {
+  margin-right: 4rpx;
+  color: #9ca3af;
+}
+
+.section-total-label {
+  margin-right: 12rpx;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .section-total-amount {
-  color: #ef4444;
-  margin-left: 8rpx;
+  font-weight: 500;
+  white-space: nowrap;
+  /* 防止极端情况下挤压 */
+  flex-shrink: 1;
 }
 
 .bill-item {
@@ -158,6 +225,13 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
+}
+
+.bill-cell {
+  padding: 12rpx 0 !important;
+  border-radius: 12rpx !important;
+  overflow: hidden; /* 确保子元素不溢出圆角 */
+  background-color: #ffffff; /* 避免背景色被父容器影响 */
 }
 
 .bill-left {
@@ -214,14 +288,9 @@
 }
 
 .bill-amount {
+  display: block;
   font-size: 26rpx;
   font-weight: 600;
-}
-
-.bill-time {
-  margin-top: 4rpx;
-  font-size: 20rpx;
-  color: #9ca3af;
 }
 
 .load-more-hint {
@@ -237,21 +306,31 @@
 }
 
 .swipe-delete-btn {
-  width: 100% !important;
-  min-width: 100% !important;
-  height: 100% !important;
-  background-color: #ef4444 !important;
+  /* 宽度由 JS 的 width 决定，这里不设 width */
+  border-radius: 12rpx !important; /* 圆角 */
+  background-color: #ebe4e4 !important;
   color: #ffffff !important;
+  font-size: 28rpx !important;
+  font-weight: 500 !important;
+  
+  /* 布局居中 */
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  font-size: 28rpx !important;
-  font-weight: 500 !important;
-  border-radius: 0 !important;
+  
+  /* 撑满父容器（高度自动继承） */
+  height: 100% !important;
   padding: 0 !important;
   margin: 0 !important;
 }
 
 .bill-icon-income {
   background-color: #d1fae5;
+}
+
+.bill-item-wrapper {
+  background-color: #ffffff;
+  padding: 16rpx 32rpx;
+  display: flex;
+  align-items: center;
 }

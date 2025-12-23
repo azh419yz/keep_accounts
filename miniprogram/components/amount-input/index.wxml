@@ -1,0 +1,53 @@
+<t-popup visible="{{visible}}" placement="bottom" bind:visible-change="onVisibleChange">
+  <view class="form-card popup-card">
+    <view class="form-header">
+      <text class="form-header-left">分类：{{categoryName}}</text>
+      <text class="form-header-right">单位：元</text>
+    </view>
+    
+    <view class="input-area">
+      <view class="amount-row">
+        <text class="amount-label">{{type === 'expense' ? '支出' : '收入'}}</text>
+        <text class="amount-value">{{amount || '0.00'}}</text>
+      </view>
+    </view>
+
+    <view class="keyboard">
+      <view class="keyboard-main">
+        <view 
+          wx:for="{{['7','8','9','4','5','6','1','2','3','0','.']}}" 
+          wx:key="*this"
+          class="key"
+          catchtap="onKeyTap"
+          data-key="{{item}}"
+        >{{item}}</view>
+        <view class="key back" catchtap="onBackspace">⌫</view>
+      </view>
+      <view class="keyboard-side">
+        <picker
+          mode="date"
+          value="{{pickerDateValue}}"
+          bindchange="onDatePickerChange"
+          class="side-key date"
+        >
+          <view>
+            <text class="side-key-icon">📅</text>
+            <text class="side-key-text">日期</text>
+            <text class="side-key-sub">{{selectedDate}}</text>
+          </view>
+        </picker>
+        <view class="side-key" catchtap="onKeyTap" data-key="+">
+          <text class="side-key-icon">＋</text>
+          <text class="side-key-text">加</text>
+        </view>
+        <view class="side-key" catchtap="onKeyTap" data-key="-">
+          <text class="side-key-icon">－</text>
+          <text class="side-key-text">减</text>
+        </view>
+        <view class="side-key done {{isCalculating ? 'calculating' : ''}}" catchtap="handleDone">
+          <text class="side-key-text done-text">{{isCalculating ? '=' : '完成'}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</t-popup>
