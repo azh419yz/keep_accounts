@@ -49,6 +49,14 @@ Component({
     inputType: 'expense',
     editingRemarkId: '', // ID of the bill currently editing remark
     remarkInputValue: '', // Temporary remark value
+    // Pull-to-refresh state
+    isAtBottom: false,
+    isAtTop: false,
+    touchStartY: null as number | null,
+    isPulling: false,
+    pullDistance: 0,
+    pullHint: '',
+    pullDownHint: '',
   },
 
   pageLifetimes: {
@@ -218,6 +226,118 @@ Component({
         currentMonth: month,
         currentMonthText: `${year}年 ${month}月`,
         pickerDate: dateStr,
+      }, () => {
+        this.fetchBills()
+      })
+    },
+
+    // --- Scroll-based Month Navigation ---
+
+    onScrollToLower() {
+      // Mark that we've reached the bottom
+      this.setData({ isAtBottom: true })
+    },
+
+    onScrollToUpper() {
+      // Mark that we've reached the top
+      this.setData({ isAtTop: true })
+    },
+
+    onTouchStart(e: WechatMiniprogram.TouchEvent) {
+      if (!this.data.isAtBottom && !this.data.isAtTop) return
+
+      this.setData({
+        touchStartY: e.touches[0].pageY,
+        isPulling: false,
+        pullDistance: 0
+      })
+    },
+
+    onTouchMove(e: WechatMiniprogram.TouchEvent) {
+      if ((!this.data.isAtBottom && !this.data.isAtTop) || !this.data.touchStartY) return
+
+      const currentY = e.touches[0].pageY
+      const distance = this.data.touchStartY - currentY
+
+      // Pull up (positive distance) at bottom
+      if (this.data.isAtBottom && distance > 0) {
+        this.setData({
+          pullDistance: distance,
+          isPulling: distance > 30,
+          pullHint: distance > 30 ? '松开可查看上月数据' : '上滑查看上月数据',
+          pullDownHint: ''
+        })
+      }
+      // Pull down (negative distance) at top
+      else if (this.data.isAtTop && distance < 0) {
+        const absDistance = Math.abs(distance)
+
+        // Check if already at current month
+        const now = new Date()
+        const currentYear = now.getFullYear()
+        const currentMonth = now.getMonth() + 1
+        const isCurrentMonth = this.data.currentYear === currentYear && this.data.currentMonth === currentMonth
+
+        if (isCurrentMonth) {
+          this.setData({
+            pullDownHint: '已是当前月份',
+            pullHint: ''
+          })
+        } else {
+          this.setData({
+            pullDistance: absDistance,
+            isPulling: absDistance > 30,
+            pullDownHint: absDistance > 30 ? '松开可查看下月数据' : '下滑查看下月数据',
+            pullHint: ''
+          })
+        }
+      }
+    },
+
+    onTouchEnd() {
+      if (!this.data.isAtBottom && !this.data.isAtTop) return
+
+      const shouldLoadPrev = this.data.isAtBottom && this.data.isPulling && this.data.pullDistance > 30
+      const shouldLoadNext = this.data.isAtTop && this.data.isPulling && this.data.pullDistance > 30
+
+      // Reset pull state
+      this.setData({
+        touchStartY: null,
+        isPulling: false,
+        pullDistance: 0,
+        pullHint: '',
+        pullDownHint: '',
+        isAtBottom: false,
+        isAtTop: false
+      })
+
+      if (shouldLoadPrev) {
+        this.switchMonth(-1)
+      } else if (shouldLoadNext) {
+        this.switchMonth(1)
+      }
+    },
+
+    switchMonth(offset: number) {
+      let year = this.data.currentYear
+      let month = this.data.currentMonth + offset
+
+      // Handle month overflow/underflow
+      if (month > 12) {
+        month = 1
+        year++
+      } else if (month < 1) {
+        month = 12
+        year--
+      }
+
+      const monthStr = String(month).padStart(2, '0')
+
+      this.setData({
+        currentYear: year,
+        currentMonth: month,
+        currentMonthText: `${year}年 ${monthStr}月`,
+        pickerDate: `${year}-${monthStr}`
       }, () => {
         this.fetchBills()
       })

@@ -1,7 +1,8 @@
 <view class="page">
-  <t-navbar title="分析" fixed="{{false}}">
-    <view slot="subtitle" class="subtitle">资产概览与预算</view>
-  </t-navbar>
+  <view class="custom-navbar">
+    <text class="custom-navbar-title">分析</text>
+    <text class="custom-navbar-subtitle">资产概览与预算</text>
+  </view>
 
   <scroll-view class="content" scroll-y>
     <!-- 本月账单卡片 -->

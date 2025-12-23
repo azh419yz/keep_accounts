@@ -1,7 +1,8 @@
 <view class="page">
-  <t-navbar title="图表" fixed="{{false}}">
-    <view slot="subtitle" class="subtitle">收支趋势与排行榜</view>
-  </t-navbar>
+  <view class="custom-navbar">
+    <text class="custom-navbar-title">图表</text>
+    <text class="custom-navbar-subtitle">收支趋势与排行榜</text>
+  </view>
 
   <!-- 收入 / 支出 切换 -->
   <view class="type-switch">

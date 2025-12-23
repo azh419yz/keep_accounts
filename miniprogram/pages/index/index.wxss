@@ -8,7 +8,7 @@
 
 .header-section {
   background-color: #ffffff;
-  padding: 12rpx 32rpx 20rpx;
+  padding: 8rpx 32rpx 12rpx;
   box-sizing: border-box;
   border-bottom: 1rpx solid #e5e7eb;
 }
@@ -16,7 +16,7 @@
 .month-and-summary {
   display: flex;
   flex-direction: row;
-  gap: 24rpx;
+  gap: 16rpx;
 }
 
 .month-wrapper {

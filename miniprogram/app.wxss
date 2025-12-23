@@ -1,4 +1,36 @@
 /**app.wxss**/
+
+/* Global page container style */
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f1f5f9;
+}
+
+/* Custom navbar styles */
+.custom-navbar {
+  background-color: #ffffff;
+  padding: 12rpx 32rpx 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.custom-navbar-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #0f172a;
+  line-height: 1.4;
+}
+
+.custom-navbar-subtitle {
+  font-size: 22rpx;
+  color: #9ca3af;
+  line-height: 1.4;
+}
+
+/* Legacy container class - kept for compatibility */
 .container {
   height: 100%;
   display: flex;

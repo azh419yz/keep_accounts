@@ -1,7 +1,8 @@
 <view class="page">
-  <t-navbar title="我的" fixed="{{false}}">
-    <view slot="subtitle" class="subtitle">个人中心</view>
-  </t-navbar>
+  <view class="custom-navbar">
+    <text class="custom-navbar-title">我的</text>
+    <text class="custom-navbar-subtitle">个人中心</text>
+  </view>
 
   <scroll-view class="content" scroll-y>
     <!-- 未登录视图 -->
