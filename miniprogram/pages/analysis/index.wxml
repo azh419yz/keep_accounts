@@ -39,7 +39,7 @@
     <view class="section">
       <view class="section-header">
         <text class="section-title">预算</text>
-        <text class="section-action">设置预算</text>
+        <text class="section-action" bindtap="onSetBudget">设置预算</text>
       </view>
       <text class="section-desc">
         预算功能暂未实现，这里预留展示本月总预算、已用金额和剩余额度等信息。

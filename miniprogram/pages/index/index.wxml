@@ -7,29 +7,37 @@
   <view class="header-section">
     <view class="month-and-summary">
       <!-- 月份选择 -->
-      <view class="month-wrapper">
+      <picker
+        mode="date"
+        value="{{pickerDate}}"
+        fields="month"
+        start="2020-01"
+        end="{{maxDate}}"
+        bindchange="onMonthPickerChange"
+        class="month-wrapper"
+      >
         <view class="month-main">
-          <text class="month-text">2025年 12月</text>
+          <text class="month-text">{{currentMonthText}}</text>
           <text class="month-arrow">▼</text>
         </view>
         <text class="month-sub">点击选择月份</text>
-      </view>
+      </picker>
 
       <!-- 收支统计 -->
       <view class="summary-wrapper">
         <view class="summary-card expense">
           <view class="summary-label-row">
             <text class="summary-label">本月支出</text>
-            <text class="summary-tag negative">-5.8%</text>
+            <text class="summary-tag negative">{{expenseChange}}</text>
           </view>
-          <text class="summary-amount negative-text">- 4,520.00</text>
+          <text class="summary-amount negative-text">- {{monthExpense}}</text>
         </view>
         <view class="summary-card income">
           <view class="summary-label-row">
             <text class="summary-label">本月收入</text>
-            <text class="summary-tag positive">+12.3%</text>
+            <text class="summary-tag positive">{{incomeChange}}</text>
           </view>
-          <text class="summary-amount positive-text">+ 8,800.00</text>
+          <text class="summary-amount positive-text">+ {{monthIncome}}</text>
         </view>
       </view>
     </view>
@@ -37,97 +45,51 @@
 
   <!-- 明细列表 -->
   <scroll-view class="content" scroll-y>
-    <!-- 今天 -->
-    <view class="section">
+    <view wx:for="{{billGroups}}" wx:key="date" class="section">
       <view class="section-header">
         <view class="section-date">
-          <text class="section-date-main">12月22日</text>
-          <text class="section-date-sub">周一</text>
+          <text class="section-date-main">{{item.dateText}}</text>
+          <text class="section-date-sub">{{item.weekday}}</text>
         </view>
         <text class="section-total">
-          当日支出
-          <text class="section-total-amount">- 320.00</text>
+          当日{{item.type === 'expense' ? '支出' : '收入'}}
+          <text class="section-total-amount {{item.type === 'expense' ? 'negative-text' : 'positive-text'}}">
+            {{item.type === 'expense' ? '-' : '+'}} {{item.dayTotal}}
+          </text>
         </text>
       </view>
 
       <t-cell-group>
-        <t-cell hover="{{false}}">
-          <view class="bill-item">
-            <view class="bill-left">
-              <view class="bill-icon bill-icon-meal">🍱</view>
-              <view class="bill-info">
-                <text class="bill-title">午餐</text>
-                <text class="bill-subtitle">餐饮 · 公司附近快餐</text>
+        <t-swipe-cell
+          wx:for="{{item.bills}}"
+          wx:for-item="bill"
+          wx:key="id"
+          wx:for-index="billIndex"
+          left="{{[]}}"
+          right="{{deleteBtnConfig}}"
+          bind:click="onSwipeCellClick"
+          data-bill-id="{{bill.id}}"
+          data-date="{{item.date}}"
+          class="swipe-cell-wrapper"
+        >
+          <t-cell hover="{{false}}">
+            <view class="bill-item">
+              <view class="bill-left">
+                <view class="bill-icon bill-icon-{{bill.categoryClass}}">{{bill.icon}}</view>
+                <view class="bill-info">
+                  <text class="bill-title">{{bill.title}}</text>
+                  <text class="bill-subtitle">{{bill.category}} · {{bill.remark}}</text>
+                </view>
+              </view>
+              <view class="bill-right">
+                <text class="bill-amount {{bill.type === 'expense' ? 'negative-text' : 'positive-text'}}">
+                  {{bill.type === 'expense' ? '-' : '+'}} {{bill.amount}}
+                </text>
+                <text class="bill-time">{{bill.time}}</text>
               </view>
             </view>
-            <view class="bill-right">
-              <text class="bill-amount negative-text">- 32.00</text>
-              <text class="bill-time">12:08</text>
-            </view>
-          </view>
-        </t-cell>
-        <t-cell hover="{{false}}">
-          <view class="bill-item">
-            <view class="bill-left">
-              <view class="bill-icon bill-icon-traffic">🚇</view>
-              <view class="bill-info">
-                <text class="bill-title">地铁</text>
-                <text class="bill-subtitle">交通 · 上班</text>
-              </view>
-            </view>
-            <view class="bill-right">
-              <text class="bill-amount negative-text">- 6.00</text>
-              <text class="bill-time">08:42</text>
-            </view>
-          </view>
-        </t-cell>
-      </t-cell-group>
-    </view>
-
-    <!-- 昨天 -->
-    <view class="section">
-      <view class="section-header">
-        <view class="section-date">
-          <text class="section-date-main">12月21日</text>
-          <text class="section-date-sub">周日</text>
-        </view>
-        <text class="section-total">
-          当日支出
-          <text class="section-total-amount">- 980.00</text>
-        </text>
-      </view>
-
-      <t-cell-group>
-        <t-cell hover="{{false}}">
-          <view class="bill-item">
-            <view class="bill-left">
-              <view class="bill-icon bill-icon-bill">🧾</view>
-              <view class="bill-info">
-                <text class="bill-title">水电费</text>
-                <text class="bill-subtitle">日用 · 12月账单</text>
-              </view>
-            </view>
-            <view class="bill-right">
-              <text class="bill-amount negative-text">- 320.00</text>
-              <text class="bill-time">21:10</text>
-            </view>
-          </view>
-        </t-cell>
-        <t-cell hover="{{false}}">
-          <view class="bill-item">
-            <view class="bill-left">
-              <view class="bill-icon bill-icon-game">🎮</view>
-              <view class="bill-info">
-                <text class="bill-title">游戏充值</text>
-                <text class="bill-subtitle">娱乐 · 周末</text>
-              </view>
-            </view>
-            <view class="bill-right">
-              <text class="bill-amount negative-text">- 120.00</text>
-              <text class="bill-time">18:05</text>
-            </view>
-          </view>
-        </t-cell>
+          </t-cell>
+        </t-swipe-cell>
       </t-cell-group>
     </view>
 

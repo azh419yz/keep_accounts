@@ -5,6 +5,7 @@
     "pages/record/index",
     "pages/analysis/index",
     "pages/profile/index",
+    "pages/account/index",
     "pages/logs/logs"
   ],
   "window": {

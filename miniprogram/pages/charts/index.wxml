@@ -7,19 +7,27 @@
   <view class="type-switch">
     <view class="type-pill">
       <view class="type-pill-inner">
-        <view class="type-pill-item active">支出</view>
-        <view class="type-pill-item">收入</view>
+        <view 
+          class="type-pill-item {{type === 'expense' ? 'active' : ''}}" 
+          bindtap="onTypeChange"
+          data-type="expense"
+        >支出</view>
+        <view 
+          class="type-pill-item {{type === 'income' ? 'active' : ''}}" 
+          bindtap="onTypeChange"
+          data-type="income"
+        >收入</view>
       </view>
     </view>
     <text class="type-summary">
-      本月支出
-      <text class="type-summary-amount">- 4,520.00</text>
+      {{type === 'expense' ? '本月支出' : '本月收入'}}
+      <text class="type-summary-amount">{{type === 'expense' ? '-' : '+'}} {{summaryAmount}}</text>
     </text>
   </view>
 
   <!-- 周 / 月 / 年 tabs -->
   <view class="tabs-wrapper">
-    <t-tabs value="month">
+    <t-tabs value="{{period}}" bind:change="onPeriodChange">
       <t-tab-panel value="week" label="周"></t-tab-panel>
       <t-tab-panel value="month" label="月"></t-tab-panel>
       <t-tab-panel value="year" label="年"></t-tab-panel>
@@ -30,11 +38,13 @@
     <!-- 最近 5 月 + 汇总 + 伪折线图（按月） -->
     <view class="month-selector">
       <view class="month-tags">
-        <text class="month-tag">8月</text>
-        <text class="month-tag">9月</text>
-        <text class="month-tag">10月</text>
-        <text class="month-tag">上月</text>
-        <text class="month-tag active">本月</text>
+        <text 
+          wx:for="{{monthTags}}" 
+          wx:key="index"
+          class="month-tag {{item.active ? 'active' : ''}}"
+          bindtap="onMonthTagTap"
+          data-index="{{index}}"
+        >{{item.label}}</text>
       </view>
       <text class="unit-text">单位：元</text>
     </view>

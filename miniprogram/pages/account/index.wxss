@@ -1,0 +1,133 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f1f5f9;
+}
+
+.subtitle {
+  font-size: 22rpx;
+  color: #9ca3af;
+}
+
+.content {
+  flex: 1;
+  padding: 24rpx 32rpx 32rpx;
+  box-sizing: border-box;
+}
+
+.card {
+  border-radius: 24rpx;
+  background-color: #ffffff;
+  border: 1rpx solid #e5e7eb;
+  padding: 20rpx 24rpx;
+  margin-bottom: 20rpx;
+}
+
+.id-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.id-label-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.id-label {
+  font-size: 24rpx;
+  font-weight: 500;
+  color: #0f172a;
+}
+
+.id-desc {
+  margin-top: 4rpx;
+  font-size: 20rpx;
+  color: #9ca3af;
+}
+
+.id-value-row {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.id-value {
+  max-width: 260rpx;
+  font-size: 22rpx;
+  color: #4b5563;
+  text-align: right;
+  word-break: break-all;
+}
+
+.id-copy {
+  font-size: 22rpx;
+  color: #2563eb;
+}
+
+.section-header {
+  margin-bottom: 8rpx;
+}
+
+.section-title {
+  font-size: 24rpx;
+  color: #0f172a;
+  font-weight: 500;
+}
+
+.field-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.field-column {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.field-label {
+  font-size: 24rpx;
+  color: #4b5563;
+}
+
+.field-input {
+  flex: 1;
+  margin-left: 16rpx;
+}
+
+.field-textarea {
+  margin-top: 8rpx;
+}
+
+.avatar-row {
+  padding: 4rpx 0;
+}
+
+.avatar {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 9999rpx;
+  background-color: #f3f4f6;
+}
+
+.gender-row {
+  gap: 16rpx;
+}
+
+.actions {
+  margin-top: 16rpx;
+}
+
+.danger-actions {
+  margin-top: 16rpx;
+}
+
+.danger-actions t-button + t-button {
+  margin-top: 8rpx;
+}
+
+

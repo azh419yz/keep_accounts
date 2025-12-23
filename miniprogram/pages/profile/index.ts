@@ -22,6 +22,19 @@ Component({
 
   lifetimes: {
     attached() {
+      this.syncUserFromGlobal()
+    },
+  },
+
+  pageLifetimes: {
+    show() {
+      // 每次从“账号设置”等页面返回时，刷新一下登录信息
+      this.syncUserFromGlobal()
+    },
+  },
+
+  methods: {
+    syncUserFromGlobal() {
       // 从全局或本地缓存恢复登录态
       const globalUser = app.globalData.user as WechatMiniprogram.UserInfo | null
       const cachedUser = wx.getStorageSync('ka_user') as WechatMiniprogram.UserInfo | null
@@ -32,11 +45,13 @@ Component({
           hasLogin: true,
           userInfo: user,
         })
+      } else {
+        this.setData({
+          hasLogin: false,
+          userInfo: null,
+        })
       }
     },
-  },
-
-  methods: {
     // 点击微信一键登录
     async onTapLogin() {
       if (this.data.loading) return
@@ -154,6 +169,20 @@ Component({
               icon: 'none',
             })
         },
+      })
+    },
+
+    // 进入账号设置页面
+    onTapAccountSettings() {
+      if (!this.data.hasLogin || !this.data.userInfo) {
+        wx.showToast({
+          title: '请先登录',
+          icon: 'none',
+        })
+        return
+      }
+      wx.navigateTo({
+        url: '/pages/account/index',
       })
     },
 

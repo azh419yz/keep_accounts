@@ -20,7 +20,7 @@
 
     <!-- 已登录视图 -->
     <view wx:elif="{{hasLogin}}" class="card">
-      <view class="user-row">
+      <view class="user-row" bindtap="onTapAccountSettings">
         <image class="avatar-real" src="{{userInfo.avatarUrl}}" mode="aspectFill" />
         <view class="user-info">
           <text class="user-title">{{userInfo.nickName}}</text>
