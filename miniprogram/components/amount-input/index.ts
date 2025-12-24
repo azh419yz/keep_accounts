@@ -65,7 +65,7 @@ Component({
     },
 
     formatDate(dateStr: string) {
-      const [y, m, d] = dateStr.split('-')
+      const [m, d] = dateStr.split('-')
       this.setData({
         selectedDate: `${m}-${d}`
       })

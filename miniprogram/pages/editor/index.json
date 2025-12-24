@@ -1,6 +1,0 @@
-{
-    "usingComponents": {
-        "record-form": "/components/record-form/index"
-    },
-    "navigationBarTitleText": "编辑账目"
-}

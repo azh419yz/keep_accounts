@@ -6,7 +6,6 @@
     "pages/analysis/index",
     "pages/profile/index",
     "pages/account/index",
-    "pages/editor/index",
     "pages/bill-details/index",
     "pages/logs/logs"
   ],
