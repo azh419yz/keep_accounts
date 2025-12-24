@@ -252,6 +252,10 @@ Component({
           title: '已保存',
           icon: 'success',
         })
+
+        setTimeout(() => {
+          wx.navigateBack()
+        }, 1500)
       } catch (e) {
         console.error('save account settings error', e)
         this.setData({ saving: false })

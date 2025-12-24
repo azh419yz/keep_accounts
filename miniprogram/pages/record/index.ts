@@ -1,4 +1,5 @@
-import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from '../../config/categories';
+import { Category } from '../../config/categories';
+import { loadUserCategories } from '../../utils/category-loader';
 
 Component({
   data: {
@@ -13,7 +14,7 @@ Component({
     pickerDateValue: '',
     showKeyboard: false,
     isCalculating: false,
-    categories: EXPENSE_CATEGORIES,
+    categories: [] as Category[],
   },
 
   methods: {
@@ -24,6 +25,7 @@ Component({
       } else {
         this.initDate()
       }
+      this.loadCategories();
     },
 
     onShow() {
@@ -33,6 +35,28 @@ Component({
           selected: 1 // record page index
         })
       }
+      this.loadCategories();
+    },
+
+
+
+    // ...
+
+    async loadCategories() {
+      const { recordType } = this.data;
+
+      const type = (recordType === 'expense' || recordType === 'income') ? recordType : 'expense';
+      let displayCategories = await loadUserCategories(type);
+
+      // Append settings item
+      displayCategories.push({
+        id: 'settings',
+        name: '自定义',
+        icon: '⚙️',
+        class: 'more'
+      });
+
+      this.setData({ categories: displayCategories });
     },
 
     initDate() {
@@ -58,11 +82,9 @@ Component({
 
           const shouldShowKeyboard = initialTarget !== 'icon'
 
-          const categories = data.type === 'expense' ? EXPENSE_CATEGORIES : INCOME_CATEGORIES
-
           this.setData({
             recordType: data.type,
-            categories: categories, // Ensure correct categories are loaded
+            // categories will be set by loadCategories
             selectedCategory: data.categoryId,
             selectedCategoryName: data.categoryName,
             amount: data.amount.toFixed(2),
@@ -71,6 +93,7 @@ Component({
             selectedDate: `${m}-${d}`,
             showKeyboard: shouldShowKeyboard
           })
+          this.loadCategories();
           wx.hideLoading()
         })
         .catch(err => {
@@ -83,13 +106,13 @@ Component({
     // 切换支出/收入
     onRecordTypeChange(e: WechatMiniprogram.TouchEvent) {
       const type = e.currentTarget.dataset.type as 'expense' | 'income'
-      const categories = type === 'expense' ? EXPENSE_CATEGORIES : INCOME_CATEGORIES
       this.setData({
         recordType: type,
-        categories: categories,
         selectedCategory: '', // Clear selection on type switch
         selectedCategoryName: '',
         showKeyboard: false // Close keyboard on type switch
+      }, () => {
+        this.loadCategories();
       })
     },
 
@@ -101,6 +124,17 @@ Component({
     // 选择类别
     onCategorySelect(e: WechatMiniprogram.TouchEvent) {
       const id = e.currentTarget.dataset.id as string
+
+      if (id === 'settings') {
+        const openid = wx.getStorageSync('ka_openid');
+        if (!openid) {
+          wx.showToast({ title: '请先登录后使用自定义功能', icon: 'none', duration: 3000 });
+          return;
+        }
+        wx.navigateTo({ url: '/pages/custom-category/index' });
+        return;
+      }
+
       const name = e.currentTarget.dataset.name as string
       this.setData({
         selectedCategory: id,

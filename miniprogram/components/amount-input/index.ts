@@ -71,7 +71,7 @@ Component({
       })
     },
 
-    onVisibleChange(e: any) {
+    onVisibleChange() {
       this.triggerEvent('close')
     },
 

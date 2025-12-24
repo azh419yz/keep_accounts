@@ -1,0 +1,56 @@
+<view class="page">
+  <view class="custom-navbar">
+    <view class="navbar-center">
+      <view class="type-pill">
+        <view class="type-pill-inner">
+          <view class="type-pill-item {{type === 'expense' ? 'active' : ''}}" bindtap="onTypeChange" data-type="expense">支出</view>
+          <view class="type-pill-item {{type === 'income' ? 'active' : ''}}" bindtap="onTypeChange" data-type="income">收入</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <scroll-view class="content" scroll-y enable-flex>
+    <view class="group-header">
+      <text>我的类别</text>
+      <text class="tips">长按拖动排序</text>
+    </view>
+
+    <view class="list selected-list" style="position: relative;">
+      <!-- Placeholder for dragging item logic if needed, or simple list for now -->
+      <view class="list-item selected-item {{dragging && dragIndex === index ? 'dragging-placeholder' : ''}}" wx:for="{{selectedCategories}}" wx:key="id" bind:longpress="onLongPress" data-index="{{index}}">
+        <!-- Delete Button (Left side or Right side? Request said: "icon... right side -") -->
+        <!-- Wait, request: "Selection parts... front is -..." -->
+        <!-- "已经选中的部分，前面为-号" -> Left side -->
+        <view class="action-btn remove-btn" catchtap="onRemove" data-index="{{index}}">－</view>
+        <view class="category-icon {{item.class}}">{{item.icon}}</view>
+        <text class="category-name">{{item.name}}</text>
+        <view class="drag-handle">≡</view>
+      </view>
+    </view>
+
+    <view class="group-header more-header">
+      <text>更多类别</text>
+    </view>
+
+    <view class="list more-list">
+      <view class="list-item more-item" wx:for="{{moreCategories}}" wx:key="id">
+        <!-- "更多类别“中的类别前面是+号" -> Left side -->
+        <view class="action-btn add-btn" catchtap="onAdd" data-index="{{index}}">＋</view>
+        <view class="category-icon {{item.class}}">{{item.icon}}</view>
+        <text class="category-name">{{item.name}}</text>
+      </view>
+    </view>
+
+    <!-- Dragging Floating Element (Ghost) -->
+    <view class="floating-item" wx:if="{{dragging}}" style="top: {{dragY}}px; left: {{dragX}}px;" catchtouchmove="onTouchMove" catchtouchend="onTouchEnd">
+      <view class="category-icon {{dragItem.class}}">{{dragItem.icon}}</view>
+      <text class="category-name">{{dragItem.name}}</text>
+    </view>
+
+  </scroll-view>
+
+  <view class="footer">
+    <button class="save-btn" bindtap="onSave">保存设置</button>
+  </view>
+</view>

@@ -7,7 +7,8 @@
     "pages/profile/index",
     "pages/account/index",
     "pages/bill-details/index",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/custom-category/index"
   ],
   "window": {
     "navigationBarTextStyle": "black",

@@ -1,0 +1,230 @@
+/* Page Layout */
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f1f5f9;
+}
+
+.custom-navbar {
+  background-color: #ffffff;
+  padding-bottom: 12rpx;
+  padding-top: 20rpx;
+  /* Safe area handled by system usually */
+}
+
+/* Type Switch Pills */
+.type-pill {
+  background-color: #f1f5f9;
+  border-radius: 9999rpx;
+  display: inline-flex;
+  padding: 6rpx;
+  margin: 0 auto;
+}
+
+.type-pill-inner {
+  display: flex;
+}
+
+.type-pill-item {
+  padding: 10rpx 40rpx;
+  border-radius: 9999rpx;
+  font-size: 28rpx;
+  color: #64748b;
+  transition: all 0.2s;
+}
+
+.type-pill-item.active {
+  background-color: #ffffff;
+  color: #2563eb;
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.05);
+  font-weight: 500;
+}
+
+.navbar-center {
+  display: flex;
+  justify-content: center;
+}
+
+/* Scroll Content */
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24rpx;
+  box-sizing: border-box;
+}
+
+.group-header {
+  margin-top: 12rpx;
+  margin-bottom: 24rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #334155;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tips {
+  font-size: 24rpx;
+  color: #94a3b8;
+  font-weight: normal;
+}
+
+.list {
+  background-color: #ffffff;
+  border-radius: 24rpx;
+  overflow: hidden;
+  margin-bottom: 48rpx;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 32rpx;
+  background-color: #ffffff;
+  border-bottom: 1rpx solid #f1f5f9;
+  height: 120rpx;
+  /* Fixed height for easier drag calc */
+  box-sizing: border-box;
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+.list-item.dragging-placeholder {
+  opacity: 0.3;
+  background-color: #f8fafc;
+}
+
+/* Action Buttons */
+.action-btn {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 24rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.remove-btn {
+  background-color: #fee2e2;
+  color: #ef4444;
+}
+
+.add-btn {
+  background-color: #dbeafe;
+  color: #2563eb;
+}
+
+/* Icon & Name */
+.category-icon {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 24rpx;
+  font-size: 40rpx;
+  flex-shrink: 0;
+}
+
+/* Icon Colors */
+.category-icon.meal {
+  background-color: #eff6ff;
+}
+
+.category-icon.shopping {
+  background-color: #fdf2f8;
+}
+
+.category-icon.daily {
+  background-color: #ecfdf3;
+}
+
+.category-icon.traffic {
+  background-color: #e0f2fe;
+}
+
+.category-icon.sport {
+  background-color: #f7fee7;
+}
+
+.category-icon.play {
+  background-color: #f5f3ff;
+}
+
+.category-icon.house {
+  background-color: #fffbeb;
+}
+
+.category-icon.more {
+  background-color: #f3f4f6;
+}
+
+.category-icon.salary {
+  background-color: #ecfdf3;
+}
+
+.category-icon.gift {
+  background-color: #fffbeb;
+}
+
+.category-name {
+  flex: 1;
+  font-size: 30rpx;
+  color: #334155;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Drag Handle */
+.drag-handle {
+  padding: 12rpx;
+  color: #cbd5e1;
+  font-size: 36rpx;
+}
+
+/* Footer */
+.footer {
+  padding: 24rpx 32rpx calc(24rpx + env(safe-area-inset-bottom));
+  background-color: #ffffff;
+  border-top: 1rpx solid #e2e8f0;
+}
+
+.save-btn {
+  background-color: #2563eb;
+  color: #ffffff;
+  border-radius: 9999rpx;
+  font-size: 32rpx;
+  font-weight: 500;
+}
+
+.save-btn:active {
+  opacity: 0.9;
+}
+
+/* Floating Item for Dragging */
+.floating-item {
+  position: fixed;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  padding: 24rpx 32rpx;
+  background-color: #ffffff;
+  border-radius: 24rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.15);
+  opacity: 0.9;
+  pointer-events: auto;
+  transform: translate(-50%, -50%);
+  width: 600rpx;
+  height: 120rpx;
+  box-sizing: border-box;
+}

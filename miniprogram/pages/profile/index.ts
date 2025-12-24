@@ -104,32 +104,48 @@ Component({
           await userCollection.add({
             data: userBase,
           })
+          // 新用户使用微信资料作为初始资料
+          this.setData({
+            hasLogin: true,
+            userInfo: profileRes.userInfo,
+          })
+          app.globalData.user = profileRes.userInfo
+          wx.setStorageSync('ka_user', profileRes.userInfo)
+
         } else {
-          // 老用户：更新登录时间和最新头像昵称
-          const userId = existed.data[0]._id
-          await userCollection.doc(userId).update({
+          // 老用户：只更新登录时间
+          // 不覆盖昵称头像，因为用户可能在账号设置里改过
+          const userDoc = existed.data[0] as IUserDoc
+          const userId = userDoc._id
+          await userCollection.doc(userId as string).update({
             data: {
-              nickName: userBase.nickName,
-              avatarUrl: userBase.avatarUrl,
-              gender: userBase.gender,
-              city: userBase.city,
-              province: userBase.province,
-              country: userBase.country,
               lastLoginAt: now,
             },
           })
+
+          // 使用数据库里的最新资料更新本地状态
+          // 构造符合 WechatMiniprogram.UserInfo 接口的对象，优先用数据库的
+          const dbUserInfo: WechatMiniprogram.UserInfo = {
+            nickName: userDoc.nickName,
+            avatarUrl: userDoc.avatarUrl,
+            gender: (userDoc.gender ?? 0) as 0 | 1 | 2,
+            city: userDoc.city ?? '',
+            province: userDoc.province ?? '',
+            country: userDoc.country ?? '',
+            language: 'zh_CN' // 默认补一个
+          }
+
+          this.setData({
+            hasLogin: true,
+            userInfo: dbUserInfo,
+          })
+          app.globalData.user = dbUserInfo
+          wx.setStorageSync('ka_user', dbUserInfo)
         }
 
-        // 4. 本地缓存 & 全局保存
-        app.globalData.user = profileRes.userInfo
+        // 4. 全局保存 openid
         app.globalData.openid = openid
-        wx.setStorageSync('ka_user', profileRes.userInfo)
         wx.setStorageSync('ka_openid', openid)
-
-        this.setData({
-          hasLogin: true,
-          userInfo: profileRes.userInfo,
-        })
 
         wx.showToast({
           title: '登录成功',
