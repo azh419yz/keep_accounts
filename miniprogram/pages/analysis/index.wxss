@@ -22,39 +22,68 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 16rpx;
+  margin-bottom: 20rpx;
 }
 
-.bill-month {
-  font-size: 22rpx;
+.bill-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.bill-arrow {
+  font-size: 24rpx;
   color: #bfdbfe;
 }
 
-.bill-days {
-  font-size: 20rpx;
-  color: #bfdbfe;
+.bill-content {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
 }
 
-.bill-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16rpx;
-  margin-bottom: 16rpx;
+.bill-month-section {
+  width: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.bill-grid-item {
+.bill-month-text {
+  font-size: 24rpx;
+  color: #dbeafe;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.bill-separator {
+  width: 2rpx;
+  height: 80rpx;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.bill-stats {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  gap: 20rpx;
+}
+
+.bill-stat-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.bill-stat-label {
   font-size: 22rpx;
-}
-
-.bill-grid-label {
-  display: block;
-  margin-bottom: 6rpx;
-  font-size: 20rpx;
   color: #dbeafe;
 }
 
-.bill-grid-value {
-  font-size: 26rpx;
+.bill-stat-value {
+  font-size: 24rpx;
   font-weight: 600;
 }
 
@@ -64,30 +93,6 @@
 
 .negative-text {
   color: #fecaca;
-}
-
-.bill-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 20rpx;
-}
-
-.bill-footer-left {
-  display: flex;
-  align-items: center;
-}
-
-.dot {
-  width: 10rpx;
-  height: 10rpx;
-  border-radius: 9999rpx;
-  background-color: #6ee7b7;
-  margin-right: 8rpx;
-}
-
-.bill-footer-right {
-  color: #dbeafe;
 }
 
 .section {
@@ -202,5 +207,3 @@
   font-size: 20rpx;
   color: #9ca3af;
 }
-
-

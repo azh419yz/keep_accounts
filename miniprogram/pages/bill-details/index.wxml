@@ -1,0 +1,96 @@
+<view class="page">
+  <view class="custom-navbar">
+    <view class="navbar-left">
+      <view class="year-selector" wx:if="{{billType === 'month'}}" bindtap="onShowYearPicker">
+        <text>{{selectedYear}}年</text>
+        <t-icon name="caret-down-small" size="32rpx" />
+      </view>
+    </view>
+    <view class="navbar-center">
+      <view class="type-switch">
+        <view class="type-switch-item {{billType === 'month' ? 'active' : ''}}" bindtap="onSwitchType" data-type="month">月账单</view>
+        <view class="type-switch-item {{billType === 'year' ? 'active' : ''}}" bindtap="onSwitchType" data-type="year">年账单</view>
+      </view>
+    </view>
+    <view class="navbar-right"></view>
+  </view>
+
+  <view class="content">
+    <!-- 月账单视图 -->
+    <block wx:if="{{billType === 'month'}}">
+      <view class="height-spacer"></view>
+
+      <view class="balance-card">
+        <view class="balance-label">年结余</view>
+        <view class="balance-amount">{{yearStats.balance >= 0 ? '+' : ''}} {{yearStats.balanceStr}}</view>
+        <view class="balance-details">
+          <view class="detail-item">
+            <text class="detail-label">年收入</text>
+            <text class="detail-value positive-text">+ {{yearStats.incomeStr}}</text>
+          </view>
+          <view class="detail-separator"></view>
+          <view class="detail-item">
+            <text class="detail-label">年支出</text>
+            <text class="detail-value negative-text">- {{yearStats.expenseStr}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="bill-list-header">
+        <text class="col-month">月份</text>
+        <text class="col-income">收入</text>
+        <text class="col-expense">支出</text>
+        <text class="col-balance">结余</text>
+      </view>
+
+      <scroll-view class="bill-list" scroll-y>
+        <view class="bill-item" wx:for="{{monthList}}" wx:key="month">
+          <text class="col-month">{{item.month}}月</text>
+          <text class="col-income">{{item.income > 0 ? '+' : ''}}{{item.incomeStr}}</text>
+          <text class="col-expense">{{item.expense > 0 ? '-' : ''}}{{item.expenseStr}}</text>
+          <text class="col-balance">{{item.balance >= 0 ? '+' : ''}}{{item.balanceStr}}</text>
+        </view>
+      </scroll-view>
+    </block>
+
+    <!-- 年账单视图 -->
+    <block wx:else>
+      <view class="height-spacer"></view>
+      <view class="balance-card">
+        <view class="balance-label">总结余</view>
+        <view class="balance-amount">{{totalStats.balance >= 0 ? '+' : ''}} {{totalStats.balanceStr}}</view>
+        <view class="balance-details">
+          <view class="detail-item">
+            <text class="detail-label">总收入</text>
+            <text class="detail-value positive-text">+ {{totalStats.incomeStr}}</text>
+          </view>
+          <view class="detail-separator"></view>
+          <view class="detail-item">
+            <text class="detail-label">总支出</text>
+            <text class="detail-value negative-text">- {{totalStats.expenseStr}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="bill-list-header">
+        <text class="col-month">年份</text>
+        <text class="col-income">收入</text>
+        <text class="col-expense">支出</text>
+        <text class="col-balance">结余</text>
+      </view>
+
+      <scroll-view class="bill-list" scroll-y>
+        <view class="bill-item" wx:for="{{yearList}}" wx:key="year">
+          <text class="col-month">{{item.year}}年</text>
+          <text class="col-income">{{item.income > 0 ? '+' : ''}}{{item.incomeStr}}</text>
+          <text class="col-expense">{{item.expense > 0 ? '-' : ''}}{{item.expenseStr}}</text>
+          <text class="col-balance">{{item.balance >= 0 ? '+' : ''}}{{item.balanceStr}}</text>
+        </view>
+      </scroll-view>
+    </block>
+  </view>
+
+  <t-picker visible="{{yearPickerVisible}}" value="{{[selectedYear]}}" title="选择年份" cancelBtn="取消" confirmBtn="确定" bindchange="onYearChange" bindcancel="onHideYearPicker">
+    <t-picker-item options="{{yearOptions}}" />
+  </t-picker>
+</view>

@@ -1,8 +1,8 @@
 <view class="page">
   <!-- 顶部导航 -->
-  <view class="custom-navbar">
+  <!-- <view class="custom-navbar">
     <text class="custom-navbar-title">记好帐</text>
-  </view>
+  </view> -->
 
   <!-- 顶部月份 + 收支统计 -->
   <view class="header-section">
@@ -42,21 +42,11 @@
   </view>
 
   <!-- 明细列表 -->
-  <scroll-view 
-    class="content" 
-    scroll-y
-    bindscrolltolower="onScrollToLower"
-    bindscrolltoupper="onScrollToUpper"
-    bindtouchstart="onTouchStart"
-    bindtouchmove="onTouchMove"
-    bindtouchend="onTouchEnd"
-    lower-threshold="50"
-    upper-threshold="50"
-  >
+  <scroll-view class="content" scroll-y bindscrolltolower="onScrollToLower" bindscrolltoupper="onScrollToUpper" bindtouchstart="onTouchStart" bindtouchmove="onTouchMove" bindtouchend="onTouchEnd" lower-threshold="50" upper-threshold="50">
     <view class="load-more-hint" wx:if="{{pullDownHint}}" style="margin-top: 16rpx;">
       {{pullDownHint}}
     </view>
-    
+
     <view wx:for="{{billGroups}}" wx:key="date" class="section">
 
       <view class="section-header">
@@ -83,19 +73,12 @@
                   <!-- Remark Section -->
                   <view class="bill-subtitle" wx:if="{{editingRemarkId === bill.id}}">
                     <text>{{bill.category}} · </text>
-                    <input 
-                      class="remark-input" 
-                      value="{{remarkInputValue}}" 
-                      focus="{{true}}" 
-                      bindinput="onRemarkInput" 
-                      bindconfirm="onRemarkConfirm" 
-                      bindblur="onRemarkBlur" 
-                    />
+                    <input class="remark-input" value="{{remarkInputValue}}" focus="{{true}}" bindinput="onRemarkInput" bindconfirm="onRemarkConfirm" bindblur="onRemarkBlur" />
                   </view>
                   <view class="bill-subtitle" wx:else>
-                     <text>{{bill.category}}{{bill.remark ? ' · ' : ''}}</text>
-                     <text catchtap="onEditRemark" data-bill-id="{{bill.id}}" data-remark="{{bill.remark}}" wx:if="{{bill.remark}}">{{bill.remark}}</text>
-                     <text catchtap="onEditRemark" data-bill-id="{{bill.id}}" data-remark="{{bill.remark}}" wx:else style="color: #cbd5e1;">点击写备注</text>
+                    <text>{{bill.category}}{{bill.remark ? ' · ' : ''}}</text>
+                    <text catchtap="onEditRemark" data-bill-id="{{bill.id}}" data-remark="{{bill.remark}}" wx:if="{{bill.remark}}">{{bill.remark}}</text>
+                    <text catchtap="onEditRemark" data-bill-id="{{bill.id}}" data-remark="{{bill.remark}}" wx:else style="color: #cbd5e1;">点击写备注</text>
                   </view>
                 </view>
               </view>
@@ -110,23 +93,9 @@
       </t-cell-group>
     </view>
 
-    <category-picker 
-      visible="{{showCategoryPicker}}" 
-      selectedId="{{editingBill.categoryId}}" 
-      initialType="{{inputType}}"
-      bind:close="onCategoryPickerClose" 
-      bind:select="onCategorySelected" 
-    />
+    <category-picker visible="{{showCategoryPicker}}" selectedId="{{editingBill.categoryId}}" initialType="{{inputType}}" bind:close="onCategoryPickerClose" bind:select="onCategorySelected" />
 
-    <amount-input 
-      visible="{{showAmountInput}}" 
-      categoryName="{{inputCategoryName}}" 
-      initialAmount="{{inputAmount}}" 
-      initialDate="{{inputDate}}"
-      type="{{inputType}}"
-      bind:close="onAmountInputClose" 
-      bind:confirm="onAmountConfirmed" 
-    />
+    <amount-input visible="{{showAmountInput}}" categoryName="{{inputCategoryName}}" initialAmount="{{inputAmount}}" initialDate="{{inputDate}}" type="{{inputType}}" bind:close="onAmountInputClose" bind:confirm="onAmountConfirmed" />
 
     <view class="load-more-hint" wx:if="{{pullHint}}">
       {{pullHint}}
@@ -135,9 +104,4 @@
       上滑加载更多 · 自动切换至上个月
     </view>
   </scroll-view>
-
-  <!-- Add Button -->
-  <view class="fab-add" bindtap="onAddRecord">
-    <text class="fab-add-icon">+</text>
-  </view>
 </view>

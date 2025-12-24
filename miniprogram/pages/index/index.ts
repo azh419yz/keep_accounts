@@ -35,7 +35,7 @@ Component({
     deleteBtnConfig: [
       {
         text: '删除',
-        style: 'background-color: #ef4444; color: #fff; width: 144rpx; display: flex; align-items: center; justify-content: center;',
+        style: 'background-color: #ef4444; color: #fff; width: 140rpx; display: flex; align-items: center; justify-content: center;',
         className: 'swipe-delete-btn',
       },
     ],

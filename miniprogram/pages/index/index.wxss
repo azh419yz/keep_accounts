@@ -227,13 +227,6 @@
   width: 100%;
 }
 
-.bill-cell {
-  padding: 12rpx 0 !important;
-  border-radius: 12rpx !important;
-  overflow: hidden; /* 确保子元素不溢出圆角 */
-  background-color: #ffffff; /* 避免背景色被父容器影响 */
-}
-
 .bill-left {
   display: flex;
   align-items: center;
@@ -307,9 +300,8 @@
 
 .swipe-delete-btn {
   /* 宽度由 JS 的 width 决定，这里不设 width */
-  border-radius: 12rpx !important; /* 圆角 */
   background-color: #ebe4e4 !important;
-  color: #ffffff !important;
+  color: #ac3333 !important;
   font-size: 28rpx !important;
   font-weight: 500 !important;
   

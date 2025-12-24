@@ -1,0 +1,204 @@
+.page {
+  min-height: 100vh;
+  background-color: #f1f5f9;
+  display: flex;
+  flex-direction: column;
+}
+
+.custom-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: env(safe-area-inset-top);
+  height: 88rpx;
+  background-color: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar-left,
+.navbar-right {
+  width: 120rpx;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.type-switch {
+  display: flex;
+  background-color: #f3f4f6;
+  border-radius: 8rpx;
+  padding: 4rpx;
+}
+
+.type-switch-item {
+  font-size: 26rpx;
+  color: #6b7280;
+  padding: 8rpx 24rpx;
+  border-radius: 6rpx;
+  transition: all 0.2s;
+}
+
+.type-switch-item.active {
+  background-color: #ffffff;
+  color: #0f172a;
+  font-weight: 500;
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.05);
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 24rpx;
+  box-sizing: border-box;
+}
+
+.filter-header {
+  margin-bottom: 24rpx;
+}
+
+.year-selector {
+  display: inline-flex;
+  align-items: center;
+  gap: 8rpx;
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.height-spacer {
+  height: 24rpx;
+}
+
+.balance-card {
+  background-image: linear-gradient(135deg, #2563eb, #3b82f6, #0ea5e9);
+  border-radius: 24rpx;
+  padding: 32rpx;
+  color: #ffffff;
+  box-shadow: 0 24rpx 60rpx rgba(30, 64, 175, 0.45);
+  margin-bottom: 32rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.balance-label {
+  font-size: 24rpx;
+  color: #bfdbfe;
+  margin-bottom: 12rpx;
+}
+
+.balance-amount {
+  font-size: 48rpx;
+  font-weight: 600;
+  margin-bottom: 24rpx;
+}
+
+.balance-details {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  gap: 32rpx;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.detail-label {
+  font-size: 24rpx;
+  color: #bfdbfe;
+}
+
+.detail-value {
+  font-size: 24rpx;
+  font-weight: 500;
+}
+
+.detail-separator {
+  width: 2rpx;
+  height: 24rpx;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.positive-text {
+  color: #bbf7d0;
+}
+
+.negative-text {
+  color: #fecaca;
+}
+
+.bill-list-header {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 24rpx;
+  background-color: #f8fafc;
+  border-radius: 12rpx 12rpx 0 0;
+  margin-bottom: 2rpx;
+}
+
+.bill-list-header text {
+  font-size: 24rpx;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.col-month {
+  width: 20%;
+}
+
+.col-income,
+.col-expense,
+.col-balance {
+  width: 26.66%;
+  text-align: right;
+}
+
+.bill-list {
+  flex: 1;
+  background-color: #ffffff;
+  border-radius: 0 0 12rpx 12rpx;
+  overflow: hidden;
+}
+
+.bill-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx;
+  border-bottom: 1rpx solid #f1f5f9;
+}
+
+.bill-item text {
+  font-size: 26rpx;
+  color: #334155;
+}
+
+.bill-item .col-month {
+  color: #64748b;
+  font-size: 24rpx;
+}
+
+.bill-item .col-income {
+  color: #10b981;
+}
+
+.bill-item .col-expense {
+  color: #ef4444;
+}
+
+.bill-item .col-balance {
+  font-weight: 500;
+}
