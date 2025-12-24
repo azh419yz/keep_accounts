@@ -1,3 +1,5 @@
+import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from '../../config/categories';
+
 Component({
   data: {
     billId: '',
@@ -11,23 +13,7 @@ Component({
     pickerDateValue: '',
     showKeyboard: false,
     isCalculating: false,
-    categories: [
-      { id: 'meal', name: '餐饮', icon: '🍱', class: 'meal' },
-      { id: 'shopping', name: '购物', icon: '🛍️', class: 'shopping' },
-      { id: 'daily', name: '日用', icon: '🧴', class: 'daily' },
-      { id: 'traffic', name: '交通', icon: '🚇', class: 'traffic' },
-      { id: 'sport', name: '运动', icon: '🏃‍♂️', class: 'sport' },
-      { id: 'play', name: '娱乐', icon: '🎮', class: 'play' },
-      { id: 'comm', name: '通讯', icon: '📞', class: 'comm' },
-      { id: 'cloth', name: '服饰', icon: '👕', class: 'cloth' },
-      { id: 'house', name: '住房', icon: '🏠', class: 'house' },
-      { id: 'travel', name: '旅行', icon: '✈️', class: 'travel' },
-      { id: 'digital', name: '数码', icon: '📱', class: 'digital' },
-      { id: 'gift', name: '礼金', icon: '🧧', class: 'gift' },
-      { id: 'pet', name: '宠物', icon: '🐱', class: 'pet' },
-      { id: 'office', name: '办公', icon: '💼', class: 'office' },
-      { id: 'other', name: '其他', icon: '🔧', class: 'other' },
-    ],
+    categories: EXPENSE_CATEGORIES,
   },
 
   methods: {
@@ -72,8 +58,11 @@ Component({
 
           const shouldShowKeyboard = initialTarget !== 'icon'
 
+          const categories = data.type === 'expense' ? EXPENSE_CATEGORIES : INCOME_CATEGORIES
+
           this.setData({
             recordType: data.type,
+            categories: categories, // Ensure correct categories are loaded
             selectedCategory: data.categoryId,
             selectedCategoryName: data.categoryName,
             amount: data.amount.toFixed(2),
@@ -94,9 +83,13 @@ Component({
     // 切换支出/收入
     onRecordTypeChange(e: WechatMiniprogram.TouchEvent) {
       const type = e.currentTarget.dataset.type as 'expense' | 'income'
+      const categories = type === 'expense' ? EXPENSE_CATEGORIES : INCOME_CATEGORIES
       this.setData({
         recordType: type,
-        // 切换类型不重置类别，只重置金额逻辑可选，也可以重置
+        categories: categories,
+        selectedCategory: '', // Clear selection on type switch
+        selectedCategoryName: '',
+        showKeyboard: false // Close keyboard on type switch
       })
     },
 
