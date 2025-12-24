@@ -52,8 +52,6 @@
   margin-right: 8rpx;
 }
 
-/* ... */
-
 .bill-item-wrapper {
   background-color: #ffffff;
   padding: 16rpx 32rpx;

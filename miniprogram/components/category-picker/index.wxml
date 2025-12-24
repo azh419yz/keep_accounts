@@ -1,6 +1,5 @@
 <t-popup visible="{{visible}}" placement="top" bind:visible-change="onVisibleChange">
   <view class="picker-content">
-    <t-navbar title="选择分类" leftArrow="{{false}}" />
     <view class="type-toggle-wrapper">
       <view class="type-toggle">
         <view class="type-toggle-inner">

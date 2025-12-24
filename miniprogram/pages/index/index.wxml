@@ -93,10 +93,6 @@
       </t-cell-group>
     </view>
 
-    <category-picker visible="{{showCategoryPicker}}" selectedId="{{editingBill.categoryId}}" initialType="{{inputType}}" bind:close="onCategoryPickerClose" bind:select="onCategorySelected" />
-
-    <amount-input visible="{{showAmountInput}}" categoryName="{{inputCategoryName}}" initialAmount="{{inputAmount}}" initialDate="{{inputDate}}" type="{{inputType}}" bind:close="onAmountInputClose" bind:confirm="onAmountConfirmed" />
-
     <view class="load-more-hint" wx:if="{{pullHint}}">
       {{pullHint}}
     </view>
@@ -104,4 +100,8 @@
       上滑加载更多 · 自动切换至上个月
     </view>
   </scroll-view>
+
+  <category-picker visible="{{showCategoryPicker}}" selectedId="{{editingBill.categoryId}}" initialType="{{inputType}}" bind:close="onCategoryPickerClose" bind:select="onCategorySelected" />
+
+  <amount-input visible="{{showAmountInput}}" categoryName="{{inputCategoryName}}" initialAmount="{{inputAmount}}" initialDate="{{inputDate}}" type="{{inputType}}" bind:close="onAmountInputClose" bind:confirm="onAmountConfirmed" />
 </view>

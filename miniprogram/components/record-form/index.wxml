@@ -33,12 +33,10 @@
       <view class="form-card popup-card">
         <view class="form-header">
           <text class="form-header-left">当前类别：{{selectedCategoryName}}</text>
-          <text class="form-header-right">单位：元</text>
         </view>
 
         <view class="input-area">
           <view class="amount-row">
-            <text class="amount-label">{{recordType === 'expense' ? '支出' : '收入'}}</text>
             <text class="amount-value">{{amount || '0.00'}}</text>
           </view>
 
@@ -58,17 +56,14 @@
             <picker mode="date" value="{{pickerDateValue}}" bindchange="onDatePickerChange" class="side-key date">
               <view>
                 <text class="side-key-icon">📅</text>
-                <text class="side-key-text">日期</text>
                 <text class="side-key-sub">{{selectedDate}}</text>
               </view>
             </picker>
             <view class="side-key" bindtap="onKeyTap" data-key="+">
               <text class="side-key-icon">＋</text>
-              <text class="side-key-text">加</text>
             </view>
             <view class="side-key" bindtap="onKeyTap" data-key="-">
               <text class="side-key-icon">－</text>
-              <text class="side-key-text">减</text>
             </view>
             <view class="side-key done {{isCalculating ? 'calculating' : ''}}" bindtap="handleDone">
               <text class="side-key-text done-text">{{isCalculating ? '=' : '完成'}}</text>

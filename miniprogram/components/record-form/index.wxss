@@ -64,7 +64,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 16rpx 0;
   border-radius: 24rpx;
 }
 
@@ -76,14 +75,14 @@
 }
 
 .category-icon {
-  width: 72rpx;
-  height: 72rpx;
+  width: 80rpx;
+  height: 80rpx;
   border-radius: 9999rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 30rpx;
-  margin-bottom: 8rpx;
+  font-size: 46rpx;
+  margin-bottom: 4rpx;
 }
 
 .category-icon.meal {
@@ -124,11 +123,9 @@
 }
 
 .form-card {
-  margin-top: 8rpx;
+  margin-top: 12rpx;
   border-radius: 24rpx;
   background-color: #ffffff;
-  border: 1rpx solid #e5e7eb;
-  padding-bottom: 0;
   overflow: hidden;
 }
 
@@ -136,8 +133,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20rpx 24rpx 8rpx;
-  font-size: 20rpx;
+  padding: 0rpx 24rpx 0rpx;
+  font-size: 24rpx;
   color: #9ca3af;
 }
 
@@ -145,20 +142,9 @@
   color: #9ca3af;
 }
 
-.form-header-right {
-  color: #9ca3af;
-}
-
 .amount-row {
-  padding: 0 24rpx 16rpx;
+  padding: 0 24rpx 8rpx;
   text-align: right;
-}
-
-.amount-label {
-  font-size: 20rpx;
-  color: #9ca3af;
-  display: block;
-  margin-bottom: 4rpx;
 }
 
 .amount-value {
@@ -174,7 +160,7 @@
 
 .remark-icon {
   margin-right: 12rpx;
-  font-size: 26rpx;
+  font-size: 24rpx;
   color: #9ca3af;
 }
 
@@ -232,12 +218,12 @@
 
 .side-key.date .side-key-sub {
   margin-top: 4rpx;
-  font-size: 18rpx;
+  font-size: 24rpx;
   color: #9ca3af;
 }
 
 .side-key-icon {
-  font-size: 26rpx;
+  font-size: 32rpx;
   margin-bottom: 4rpx;
 }
 
@@ -247,6 +233,6 @@
 
 .done-text {
   color: #ffffff;
-  font-size: 24rpx;
+  font-size: 32rpx;
   font-weight: 500;
 }

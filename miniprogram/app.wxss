@@ -1,6 +1,4 @@
 /**app.wxss**/
-
-/* Global page container style */
 .page {
   min-height: 100vh;
   display: flex;

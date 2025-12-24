@@ -19,3 +19,6 @@ miniprogram/miniprogram_npm
 dist
 
 .agent
+
+deploy/*
+.DS_Store

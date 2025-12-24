@@ -1,6 +1,6 @@
 .picker-content {
   background-color: #fff;
-  padding-bottom: 24rpx;
+  padding-bottom: 8rpx;
   border-radius: 0 0 24rpx 24rpx;
   overflow: hidden;
 }

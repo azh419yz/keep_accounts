@@ -21,17 +21,14 @@
         <picker mode="date" value="{{pickerDateValue}}" bindchange="onDatePickerChange" class="side-key date">
           <view>
             <text class="side-key-icon">📅</text>
-            <text class="side-key-text">日期</text>
             <text class="side-key-sub">{{selectedDate}}</text>
           </view>
         </picker>
         <view class="side-key" catchtap="onKeyTap" data-key="+">
           <text class="side-key-icon">＋</text>
-          <text class="side-key-text">加</text>
         </view>
         <view class="side-key" catchtap="onKeyTap" data-key="-">
           <text class="side-key-icon">－</text>
-          <text class="side-key-text">减</text>
         </view>
         <view class="side-key done {{isCalculating ? 'calculating' : ''}}" catchtap="handleDone">
           <text class="side-key-text done-text">{{isCalculating ? '=' : '完成'}}</text>
