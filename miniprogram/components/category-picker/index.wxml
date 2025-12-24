@@ -2,30 +2,17 @@
   <view class="picker-content">
     <t-navbar title="选择分类" leftArrow="{{false}}" />
     <view class="type-toggle-wrapper">
-       <view class="type-toggle">
+      <view class="type-toggle">
         <view class="type-toggle-inner">
-          <view 
-            class="type-item {{type === 'expense' ? 'active' : ''}}"
-            catchtap="onTypeChange"
-            data-type="expense"
-          >支出</view>
-          <view 
-            class="type-item {{type === 'income' ? 'active' : ''}}"
-            catchtap="onTypeChange"
-            data-type="income"
-          >收入</view>
+          <view class="type-item {{type === 'expense' ? 'active' : ''}}" catchtap="onTypeChange" data-type="expense">支出</view>
+          <view class="type-item {{type === 'income' ? 'active' : ''}}" catchtap="onTypeChange" data-type="income">收入</view>
         </view>
       </view>
     </view>
-   
+
     <t-grid column="{{5}}" border="{{false}}" class="category-grid">
       <t-grid-item wx:for="{{categories}}" wx:key="id">
-        <view 
-          class="category-item {{selected === item.id ? 'active' : ''}}"
-          catchtap="onSelect"
-          data-id="{{item.id}}"
-          data-item="{{item}}"
-        >
+        <view class="category-item {{selected === item.id ? 'active' : ''}}" catchtap="onSelect" data-id="{{item.id}}" data-item="{{item}}">
           <view class="category-icon {{item.class}}">{{item.icon}}</view>
           <text class="category-text">{{item.name}}</text>
         </view>

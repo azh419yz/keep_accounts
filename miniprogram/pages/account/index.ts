@@ -226,11 +226,11 @@ Component({
         // 更新前端全局 user 信息以便 UI 立即生效（不改云端登录信息字段）
         const originUser = (accountApp.globalData.user ||
           wx.getStorageSync('ka_user') || {
-            country: '',
-            province: '',
-            city: '',
-            language: 'zh_CN',
-          }) as WechatMiniprogram.UserInfo
+          country: '',
+          province: '',
+          city: '',
+          language: 'zh_CN',
+        }) as WechatMiniprogram.UserInfo
 
         const newUserInfo: WechatMiniprogram.UserInfo = {
           ...originUser,

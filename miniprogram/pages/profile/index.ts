@@ -164,10 +164,10 @@ Component({
             userInfo: null,
           })
 
-            wx.showToast({
-              title: '已退出登录',
-              icon: 'none',
-            })
+          wx.showToast({
+            title: '已退出登录',
+            icon: 'none',
+          })
         },
       })
     },

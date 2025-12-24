@@ -304,12 +304,12 @@
   color: #ac3333 !important;
   font-size: 28rpx !important;
   font-weight: 500 !important;
-  
+
   /* 布局居中 */
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  
+
   /* 撑满父容器（高度自动继承） */
   height: 100% !important;
   padding: 0 !important;

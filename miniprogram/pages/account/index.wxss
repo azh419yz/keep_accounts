@@ -119,8 +119,6 @@
   margin-top: 16rpx;
 }
 
-.danger-actions t-button + t-button {
+.danger-actions t-button+t-button {
   margin-top: 8rpx;
 }
-
-
